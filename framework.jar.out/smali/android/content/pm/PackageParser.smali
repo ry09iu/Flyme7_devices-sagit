@@ -4731,7 +4731,7 @@
 
     move-result-object v2
 
-    const v3, 0x107000f
+    const v3, #android:array@power_off_alarm_apps#t
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
 
@@ -13335,6 +13335,9 @@
 
     .line 2274
     :cond_5a
+
+    invoke-static/range {p1 .. p1}, Landroid/content/pm/FlymePackageParserInjector;->addFlymeRequestedPermissions(Landroid/content/pm/PackageParser$Package;)V
+
     return-object p1
 .end method
 
@@ -16132,7 +16135,7 @@
 
     move-result-object v15
 
-    const v16, 0x11200d4
+    const v16, #android:bool@config_useRoundIcon#t
 
     invoke-virtual/range {v15 .. v16}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -18604,7 +18607,7 @@
 
     move-result-object v8
 
-    const v9, 0x11200d4
+    const v9, #android:bool@config_useRoundIcon#t
 
     invoke-virtual {v8, v9}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -24520,20 +24523,29 @@
     .param p2, "requireFilename"    # Z
 
     .prologue
-    .line 1424
+
+    invoke-static/range {p0 .. p0}, Landroid/content/pm/FlymePackageParserInjector;->validateName(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond__flyme_0
+
+    const/4 v0, 0x0
+
+    return-object v0
+
+    :cond__flyme_0
+
     invoke-virtual {p0}, Ljava/lang/String;->length()I
 
     move-result v0
 
-    .line 1425
     .local v0, "N":I
     const/4 v3, 0x0
 
-    .line 1426
     .local v3, "hasSep":Z
     const/4 v2, 0x1
 
-    .line 1427
     .local v2, "front":Z
     const/4 v4, 0x0
 

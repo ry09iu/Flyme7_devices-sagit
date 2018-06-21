@@ -211,14 +211,12 @@
 
     if-eqz v8, :cond_3
 
-    .line 180
     new-instance v1, Landroid/view/animation/AnimationSet;
 
     invoke-direct {v1, p0, p3}, Landroid/view/animation/AnimationSet;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
     :try_end_0
     .catch Lorg/xmlpull/v1/XmlPullParserException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 181
     .end local v2    # "anim":Landroid/view/animation/Animation;
     .local v1, "anim":Landroid/view/animation/Animation;
     :try_start_1
@@ -308,11 +306,10 @@
     .restart local v1    # "anim":Landroid/view/animation/Animation;
     goto :goto_1
 
-    .line 188
     .end local v1    # "anim":Landroid/view/animation/Animation;
     .restart local v2    # "anim":Landroid/view/animation/Animation;
     :cond_6
-    const-string/jumbo v8, "translate"
+    const-string v8, "translate"
 
     invoke-virtual {v5, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -2039,17 +2036,14 @@
     .param p1, "fromLeft"    # Z
 
     .prologue
-    .line 285
     if-eqz p1, :cond_0
 
-    .line 286
-    const v1, 0x10a0002
+    const v1, #android:anim@slide_in_left#t
 
     invoke-static {p0, v1}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
 
     move-result-object v0
 
-    .line 291
     .local v0, "a":Landroid/view/animation/Animation;
     :goto_0
     new-instance v1, Landroid/view/animation/DecelerateInterpolator;
@@ -2071,7 +2065,7 @@
     .line 288
     .end local v0    # "a":Landroid/view/animation/Animation;
     :cond_0
-    const v1, 0x10a008d
+    const v1, #android:anim@slide_in_right#t
 
     invoke-static {p0, v1}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
 
@@ -2086,14 +2080,12 @@
     .param p0, "c"    # Landroid/content/Context;
 
     .prologue
-    .line 327
-    const v1, 0x10a008a
+    const v1, #android:anim@slide_in_child_bottom#t
 
     invoke-static {p0, v1}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
 
     move-result-object v0
 
-    .line 328
     .local v0, "a":Landroid/view/animation/Animation;
     new-instance v1, Landroid/view/animation/AccelerateInterpolator;
 
@@ -2118,17 +2110,14 @@
     .param p1, "toRight"    # Z
 
     .prologue
-    .line 306
     if-eqz p1, :cond_0
 
-    .line 307
-    const v1, 0x10a0003
+    const v1, #android:anim@slide_out_right#t
 
     invoke-static {p0, v1}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
 
     move-result-object v0
 
-    .line 312
     .local v0, "a":Landroid/view/animation/Animation;
     :goto_0
     new-instance v1, Landroid/view/animation/AccelerateInterpolator;
@@ -2150,7 +2139,7 @@
     .line 309
     .end local v0    # "a":Landroid/view/animation/Animation;
     :cond_0
-    const v1, 0x10a0090
+    const v1, #android:anim@slide_out_left#t
 
     invoke-static {p0, v1}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
 

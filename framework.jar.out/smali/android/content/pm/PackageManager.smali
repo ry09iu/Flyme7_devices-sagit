@@ -2690,3 +2690,6 @@
 
 .method public abstract verifyPendingInstall(II)V
 .end method
+
+.method public abstract clearIconCache(Ljava/lang/String;)V
+.end method

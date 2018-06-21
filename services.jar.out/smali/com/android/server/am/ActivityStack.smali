@@ -1070,22 +1070,18 @@
 
     move-result-object v0
 
-    .line 477
-    const v1, 0x11200ba
+    const v1, #android:bool@config_enablePerfBoostForAnimation#t
 
-    .line 476
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
     move-result v0
 
     iput-boolean v0, p0, Lcom/android/server/am/ActivityStack;->mIsAnimationBoostEnabled:Z
 
-    .line 478
     iget-boolean v0, p0, Lcom/android/server/am/ActivityStack;->mIsAnimationBoostEnabled:Z
 
     if-eqz v0, :cond_1
 
-    .line 479
     iget-object v0, p0, Lcom/android/server/am/ActivityStack;->mService:Lcom/android/server/am/ActivityManagerService;
 
     iget-object v0, v0, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
@@ -1094,17 +1090,14 @@
 
     move-result-object v0
 
-    .line 480
-    const v1, 0x10e00ae
+    const v1, #android:integer@animationboost_timeout_param#t
 
-    .line 479
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
     move-result v0
 
     iput v0, p0, Lcom/android/server/am/ActivityStack;->aBoostTimeOut:I
 
-    .line 481
     iget-object v0, p0, Lcom/android/server/am/ActivityStack;->mService:Lcom/android/server/am/ActivityManagerService;
 
     iget-object v0, v0, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
@@ -1113,17 +1106,14 @@
 
     move-result-object v0
 
-    .line 482
-    const v1, 0x1070050
+    const v1, #android:array@animationboost_param_value#t
 
-    .line 481
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getIntArray(I)[I
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/server/am/ActivityStack;->aBoostParamVal:[I
 
-    .line 465
     :cond_1
     return-void
 .end method
@@ -6694,10 +6684,8 @@
 
     move-result-object v4
 
-    .line 2329
-    const v5, 0x10e00f2
+    const v5, #android:integer@resumeboost_timeout_param#t
 
-    .line 2328
     invoke-virtual {v4, v5}, Landroid/content/res/Resources;->getInteger(I)I
 
     move-result v4
@@ -6719,11 +6707,11 @@
 
     iget-object v4, v0, Lcom/android/server/am/ActivityStack;->mService:Lcom/android/server/am/ActivityManagerService;
 
+    .line 2333
     move-object/from16 v0, v27
 
     iget-object v5, v0, Lcom/android/server/am/ActivityRecord;->processName:Ljava/lang/String;
 
-    .line 2333
     move-object/from16 v0, v27
 
     iget-object v6, v0, Lcom/android/server/am/ActivityRecord;->info:Landroid/content/pm/ActivityInfo;
@@ -29793,4 +29781,18 @@
     move v4, v6
 
     goto :goto_2
+.end method
+
+.method private checkFlymeAccessControl(Lcom/android/server/am/ActivityRecord;)Z
+    .locals 1
+    .param p1, "next"    # Lcom/android/server/am/ActivityRecord;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/am/ActivityStack;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    invoke-virtual {v0, p0, p1}, Lcom/android/server/am/ActivityManagerService;->checkAccessControl(Lcom/android/server/am/ActivityStack;Lcom/android/server/am/ActivityRecord;)Z
+
+    move-result v0
+
+    return v0
 .end method

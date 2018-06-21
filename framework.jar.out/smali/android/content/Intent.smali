@@ -772,6 +772,9 @@
 
 
 # instance fields
+
+.field public mFlymeIntent:Landroid/content/IntentExt;
+
 .field private mAction:Ljava/lang/String;
 
 .field private mCategories:Landroid/util/ArraySet;
@@ -833,20 +836,16 @@
     .locals 2
 
     .prologue
-    .line 4795
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 4788
     const/4 v0, -0x2
 
     iput v0, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 9179
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 4795
     return-void
 .end method
 
@@ -863,28 +862,23 @@
     .end annotation
 
     .prologue
-    .line 4909
     .local p2, "cls":Ljava/lang/Class;, "Ljava/lang/Class<*>;"
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 4788
     const/4 v0, -0x2
 
     iput v0, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 9179
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 4910
     new-instance v0, Landroid/content/ComponentName;
 
     invoke-direct {v0, p1, p2}, Landroid/content/ComponentName;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
     iput-object v0, p0, Landroid/content/Intent;->mComponent:Landroid/content/ComponentName;
 
-    .line 4909
     return-void
 .end method
 
@@ -1015,23 +1009,19 @@
 
     iput-object v0, p0, Landroid/content/Intent;->mClipData:Landroid/content/ClipData;
 
-    .line 4825
     :cond_4
     iget-object v0, p1, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
 
     iput-object v0, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
 
-    .line 4826
     iget-wide v0, p1, Landroid/content/Intent;->mLaunchStartTime:J
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 4827
     iget v0, p1, Landroid/content/Intent;->mMiuiFlags:I
 
     iput v0, p0, Landroid/content/Intent;->mMiuiFlags:I
 
-    .line 4801
     return-void
 .end method
 
@@ -1093,23 +1083,19 @@
 
     iput-object v0, p0, Landroid/content/Intent;->mCategories:Landroid/util/ArraySet;
 
-    .line 4845
     :cond_0
     iget-object v0, p1, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
 
     iput-object v0, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
 
-    .line 4846
     iget-wide v0, p1, Landroid/content/Intent;->mLaunchStartTime:J
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 4847
     iget v0, p1, Landroid/content/Intent;->mMiuiFlags:I
 
     iput v0, p0, Landroid/content/Intent;->mMiuiFlags:I
 
-    .line 4835
     return-void
 .end method
 
@@ -1118,23 +1104,18 @@
     .param p1, "in"    # Landroid/os/Parcel;
 
     .prologue
-    .line 8714
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 4788
     const/4 v0, -0x2
 
     iput v0, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 9179
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 8715
     invoke-virtual {p0, p1}, Landroid/content/Intent;->readFromParcel(Landroid/os/Parcel;)V
 
-    .line 8714
     return-void
 .end method
 
@@ -1143,23 +1124,18 @@
     .param p1, "action"    # Ljava/lang/String;
 
     .prologue
-    .line 4868
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 4788
     const/4 v0, -0x2
 
     iput v0, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 9179
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 4869
     invoke-virtual {p0, p1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 4868
     return-void
 .end method
 
@@ -1169,26 +1145,20 @@
     .param p2, "uri"    # Landroid/net/Uri;
 
     .prologue
-    .line 4888
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 4788
     const/4 v0, -0x2
 
     iput v0, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 9179
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 4889
     invoke-virtual {p0, p1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 4890
     iput-object p2, p0, Landroid/content/Intent;->mData:Landroid/net/Uri;
 
-    .line 4888
     return-void
 .end method
 
@@ -1209,34 +1179,27 @@
     .end annotation
 
     .prologue
-    .line 4936
     .local p4, "cls":Ljava/lang/Class;, "Ljava/lang/Class<*>;"
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 4788
     const/4 v0, -0x2
 
     iput v0, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 9179
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 4938
     invoke-virtual {p0, p1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 4939
     iput-object p2, p0, Landroid/content/Intent;->mData:Landroid/net/Uri;
 
-    .line 4940
     new-instance v0, Landroid/content/ComponentName;
 
     invoke-direct {v0, p3, p4}, Landroid/content/ComponentName;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
     iput-object v0, p0, Landroid/content/Intent;->mComponent:Landroid/content/ComponentName;
 
-    .line 4937
     return-void
 .end method
 
@@ -8612,21 +8575,20 @@
 
     if-ne v4, v7, :cond_10
 
-    .line 8226
     iget v4, p1, Landroid/content/Intent;->mContentUserHint:I
 
     if-eq v4, v7, :cond_10
 
-    .line 8227
     iget v4, p1, Landroid/content/Intent;->mContentUserHint:I
 
     iput v4, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 8229
     :cond_10
+
+    invoke-static/range {p0 .. p1}, Landroid/content/FlymeIntentInjector;->copyMeizuFlag(Landroid/content/Intent;Landroid/content/Intent;)V
+
     return v0
 
-    .line 8156
     :cond_11
     and-int/lit8 v4, p2, 0x2
 
@@ -12321,28 +12283,24 @@
 
     iput v2, p0, Landroid/content/Intent;->mContentUserHint:I
 
-    .line 8749
     invoke-virtual {p1}, Landroid/os/Parcel;->readBundle()Landroid/os/Bundle;
 
     move-result-object v2
 
     iput-object v2, p0, Landroid/content/Intent;->mExtras:Landroid/os/Bundle;
 
-    .line 8751
     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
 
     move-result-object v2
 
     iput-object v2, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
 
-    .line 8752
     invoke-virtual {p1}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v2
 
     iput-wide v2, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
-    .line 8718
     return-void
 .end method
 
@@ -14491,69 +14449,55 @@
 
     goto :goto_0
 
-    .line 8680
     :cond_1
     invoke-virtual {p1, v3}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 8683
     :cond_2
     iget-object v2, p0, Landroid/content/Intent;->mSelector:Landroid/content/Intent;
 
     if-eqz v2, :cond_3
 
-    .line 8684
     invoke-virtual {p1, v4}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 8685
     iget-object v2, p0, Landroid/content/Intent;->mSelector:Landroid/content/Intent;
 
     invoke-virtual {v2, p1, p2}, Landroid/content/Intent;->writeToParcel(Landroid/os/Parcel;I)V
 
-    .line 8690
     :goto_2
     iget-object v2, p0, Landroid/content/Intent;->mClipData:Landroid/content/ClipData;
 
     if-eqz v2, :cond_4
 
-    .line 8691
     invoke-virtual {p1, v4}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 8692
     iget-object v2, p0, Landroid/content/Intent;->mClipData:Landroid/content/ClipData;
 
     invoke-virtual {v2, p1, p2}, Landroid/content/ClipData;->writeToParcel(Landroid/os/Parcel;I)V
 
-    .line 8696
     :goto_3
     iget v2, p0, Landroid/content/Intent;->mContentUserHint:I
 
     invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 8697
     iget-object v2, p0, Landroid/content/Intent;->mExtras:Landroid/os/Bundle;
 
     invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeBundle(Landroid/os/Bundle;)V
 
-    .line 8699
     iget-object v2, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
 
     invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 8700
     iget-wide v2, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
     invoke-virtual {p1, v2, v3}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 8658
     return-void
 
-    .line 8687
     :cond_3
     invoke-virtual {p1, v3}, Landroid/os/Parcel;->writeInt(I)V
 
     goto :goto_2
 
-    .line 8694
     :cond_4
     invoke-virtual {p1, v3}, Landroid/os/Parcel;->writeInt(I)V
 

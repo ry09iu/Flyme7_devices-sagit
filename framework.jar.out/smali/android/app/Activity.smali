@@ -85,6 +85,9 @@
 
 
 # instance fields
+
+.field mFlymeActionBarToTop:Z
+
 .field mActionBar:Landroid/app/ActionBar;
 
 .field private mActionModeTypeStarting:I
@@ -273,7 +276,7 @@
 
     new-array v0, v0, [I
 
-    const v1, 0x101009c
+    const v1, #android:attr@state_focused#t
 
     const/4 v2, 0x0
 
@@ -2847,38 +2850,30 @@
 
     const/4 v9, 0x1
 
-    .line 3144
     sget v6, Landroid/app/Activity;->mDragBoostPossible:I
 
     if-ne v6, v8, :cond_0
 
-    .line 3145
     sput v5, Landroid/app/Activity;->mDragBoostPossible:I
 
-    .line 3146
     invoke-virtual {p0}, Landroid/app/Activity;->getPackageName()Ljava/lang/String;
 
     move-result-object v2
 
-    .line 3147
     .local v2, "currentActivity":Ljava/lang/String;
     invoke-virtual {p0}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v6
 
-    .line 3148
-    const v7, 0x1070054
+    const v7, #android:array@boost_activityList#t
 
-    .line 3147
     invoke-virtual {v6, v7}, Landroid/content/res/Resources;->getStringArray(I)[Ljava/lang/String;
 
     move-result-object v0
 
-    .line 3149
     .local v0, "activityList":[Ljava/lang/String;
     if-eqz v0, :cond_0
 
-    .line 3150
     array-length v6, v0
 
     :goto_0
@@ -2943,59 +2938,48 @@
 
     if-nez v4, :cond_4
 
-    .line 3166
     sget-object v5, Landroid/app/Activity;->mPerf:Landroid/util/BoostFramework;
 
     if-nez v5, :cond_2
 
-    .line 3167
     new-instance v5, Landroid/util/BoostFramework;
 
     invoke-direct {v5}, Landroid/util/BoostFramework;-><init>()V
 
     sput-object v5, Landroid/app/Activity;->mPerf:Landroid/util/BoostFramework;
 
-    .line 3169
     :cond_2
     sget v5, Landroid/app/Activity;->mPerfLockDuration:I
 
     if-ne v5, v8, :cond_3
 
-    .line 3170
     invoke-virtual {p0}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v5
 
-    .line 3171
-    const v6, 0x10e00b2
+    const v6, #android:integer@ascrollboost_timeout#t
 
-    .line 3170
     invoke-virtual {v5, v6}, Landroid/content/res/Resources;->getInteger(I)I
 
     move-result v5
 
     sput v5, Landroid/app/Activity;->mPerfLockDuration:I
 
-    .line 3172
     invoke-virtual {p0}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v5
 
-    .line 3173
-    const v6, 0x1070055
+    const v6, #android:array@ascrollboost_param_value#t
 
-    .line 3172
     invoke-virtual {v5, v6}, Landroid/content/res/Resources;->getIntArray(I)[I
 
     move-result-object v5
 
     sput-object v5, Landroid/app/Activity;->mAsParamVal:[I
 
-    .line 3175
     :cond_3
     sget-object v5, Landroid/app/Activity;->mPerf:Landroid/util/BoostFramework;
 
-    .line 3176
     invoke-virtual {p0}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v6
@@ -5029,6 +5013,9 @@
 
     invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
 
+
+    invoke-static/range {p0 .. p0}, Landroid/app/FlymeActivityInjector;->makeDecorViewVisible(Landroid/app/Activity;)V
+
     .line 5302
     return-void
 .end method
@@ -5581,6 +5568,9 @@
 
     .line 2032
     :cond_1
+
+    invoke-static/range {p0 .. p0}, Landroid/app/FlymeActivityInjector;->updateStatusBarHeight(Landroid/app/Activity;)V
+
     return-void
 .end method
 
@@ -6664,7 +6654,7 @@
 
     move-result v1
 
-    const v2, 0x102002c
+    const v2, #android:id@home#t
 
     if-ne v1, v2, :cond_4
 
@@ -9246,10 +9236,8 @@
 
     move-result-object v5
 
-    .line 6912
-    const v7, 0x104000a
+    const v7, #android:string@ok#t
 
-    .line 6909
     invoke-virtual {v5, v7, v9}, Landroid/app/AlertDialog$Builder;->setPositiveButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v5
@@ -13030,5 +13018,162 @@
     invoke-virtual {p1, v0}, Landroid/view/View;->setOnCreateContextMenuListener(Landroid/view/View$OnCreateContextMenuListener;)V
 
     .line 3707
+    return-void
+.end method
+
+
+.method public isActionBarToTop()Z
+    .locals 1
+
+    .prologue
+    iget-boolean v0, p0, Landroid/app/Activity;->mFlymeActionBarToTop:Z
+
+    return v0
+.end method
+
+.method public overridePendingTransition(Landroid/os/Bundle;)V
+    .locals 5
+    .param p1, "options"    # Landroid/os/Bundle;
+
+    .prologue
+    :try_start_0
+    new-instance v1, Landroid/app/FlymeExtIActivityManagerProxy;
+
+    invoke-direct {v1}, Landroid/app/FlymeExtIActivityManagerProxy;-><init>()V
+
+    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
+
+    move-result-object v2
+
+    invoke-interface {v2}, Landroid/app/IActivityManager;->asBinder()Landroid/os/IBinder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Landroid/app/Activity;->mToken:Landroid/os/IBinder;
+
+    invoke-virtual {p0}, Landroid/app/Activity;->getPackageName()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v1, v2, v3, v4, p1}, Landroid/app/FlymeExtIActivityManagerProxy;->overridePendingTransition(Landroid/os/IBinder;Landroid/os/IBinder;Ljava/lang/String;Landroid/os/Bundle;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    :goto_0
+    return-void
+
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Landroid/os/RemoteException;
+    goto :goto_0
+.end method
+
+.method final scrollForCapture([Landroid/view/MotionEvent;I)V
+    .locals 3
+    .param p1, "event"    # [Landroid/view/MotionEvent;
+    .param p2, "value"    # I
+
+    .prologue
+    array-length v0, p1
+
+    .local v0, "length":I
+    if-lez v0, :cond_0
+
+    invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/view/Window;->getDecorView()Landroid/view/View;
+
+    move-result-object v1
+
+    new-instance v2, Landroid/app/FlymeActivityInjector$FlymeDecorView;
+
+    invoke-direct {v2, p0, p1}, Landroid/app/FlymeActivityInjector$FlymeDecorView;-><init>(Landroid/app/Activity;[Landroid/view/MotionEvent;)V
+
+    invoke-virtual {v1, v2}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
+
+    :cond_0
+    return-void
+.end method
+
+.method public setActionBarToTop(Z)V
+    .locals 0
+    .param p1, "actionBarToTop"    # Z
+
+    .prologue
+    iput-boolean p1, p0, Landroid/app/Activity;->mFlymeActionBarToTop:Z
+
+    invoke-static {p0, p1}, Landroid/app/FlymeActivityInjector;->setTranslucentStatus(Landroid/app/Activity;Z)V
+
+    return-void
+.end method
+
+.method public setStatusBarDarkIcon(I)V
+    .locals 2
+    .param p1, "color"    # I
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
+
+    invoke-virtual {v0}, Landroid/view/Window;->getAppTintBarAssist()Lcom/meizu/tintbar/IAppTintBarAssist;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    invoke-interface {v0, v1}, Lcom/meizu/tintbar/IAppTintBarAssist;->setAutoStatusBarIcon(Z)V
+
+    iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
+
+    invoke-virtual {v0, p1}, Landroid/view/Window;->setStatusBarIconColor(I)V
+
+    return-void
+.end method
+
+.method public setStatusBarDarkIcon(Z)V
+    .locals 2
+    .param p1, "on"    # Z
+
+    .prologue
+    iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
+
+    invoke-virtual {v0}, Landroid/view/Window;->getAppTintBarAssist()Lcom/meizu/tintbar/IAppTintBarAssist;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    invoke-interface {v0, v1}, Lcom/meizu/tintbar/IAppTintBarAssist;->setAutoStatusBarIcon(Z)V
+
+    iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
+
+    invoke-virtual {v0, p1}, Landroid/view/Window;->setStatusBarDarkIcon(Z)V
+
+    return-void
+.end method
+
+.method public setStatusBarIconColor(I)V
+    .locals 2
+    .param p1, "color"    # I
+
+    .prologue
+    iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
+
+    invoke-virtual {v0}, Landroid/view/Window;->getAppTintBarAssist()Lcom/meizu/tintbar/IAppTintBarAssist;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    invoke-interface {v0, v1}, Lcom/meizu/tintbar/IAppTintBarAssist;->setAutoStatusBarIcon(Z)V
+
+    iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
+
+    invoke-virtual {v0, p1}, Landroid/view/Window;->setStatusBarIconColor(I)V
+
     return-void
 .end method

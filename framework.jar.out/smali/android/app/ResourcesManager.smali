@@ -1760,27 +1760,25 @@
 
     if-eqz v14, :cond_9
 
-    .line 828
     :cond_2
     :goto_0
     move-object/from16 v0, p1
 
     invoke-static {v2, v0}, Landroid/app/MiuiThemeHelper;->handleExtraConfigurationChanges(ILandroid/content/res/Configuration;)V
 
-    .line 830
     move-object/from16 v0, p1
 
     move-object/from16 v1, p2
 
     invoke-static {v0, v5, v1}, Landroid/content/res/Resources;->updateSystemConfiguration(Landroid/content/res/Configuration;Landroid/util/DisplayMetrics;Landroid/content/res/CompatibilityInfo;)V
 
-    .line 832
+
+    invoke-static/range {v2 .. v2}, Landroid/app/FlymeResourcesManagerInjector;->freeCaches(I)V
+
     invoke-static {}, Landroid/app/ApplicationPackageManager;->configurationChanged()V
 
-    .line 835
     const/4 v13, 0x0
 
-    .line 837
     .local v13, "tmpConfig":Landroid/content/res/Configuration;
     move-object/from16 v0, p0
 

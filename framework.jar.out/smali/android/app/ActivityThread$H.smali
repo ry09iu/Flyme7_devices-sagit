@@ -767,18 +767,17 @@
 
     invoke-static {v0, v1, v2}, Landroid/app/ActivityThreadInjector;->checkHandleMessageTime(JLandroid/os/Message;)V
 
-    .line 1799
     sget-boolean v4, Landroid/app/ActivityThread;->DEBUG_MESSAGES:Z
 
     if-eqz v4, :cond_2
 
-    const-string/jumbo v4, "ActivityThread"
+    const-string v4, "ActivityThread"
 
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v6, "<<< done: "
+    const-string v6, "<<< done: "
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -804,19 +803,16 @@
 
     invoke-static {v4, v5}, Landroid/util/Slog;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1537
     :cond_2
     return-void
 
-    .line 1543
     :pswitch_1
-    const-string/jumbo v4, "activityStart"
+    const-string v4, "activityStart"
 
     const-wide/16 v6, 0x40
 
     invoke-static {v6, v7, v4}, Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V
 
-    .line 1544
     move-object/from16 v0, p1
 
     iget-object v0, v0, Landroid/os/Message;->obj:Ljava/lang/Object;
@@ -2542,5 +2538,44 @@
         :pswitch_34
         :pswitch_35
         :pswitch_36
+    .end packed-switch
+.end method
+
+.method private handleFlymeMessage(Landroid/os/Message;)V
+    .locals 2
+    .param p1, "msg"    # Landroid/os/Message;
+
+    .prologue
+    iget v0, p1, Landroid/os/Message;->what:I
+
+    packed-switch v0, :pswitch_data_0
+
+    :goto_0
+    return-void
+
+    :pswitch_0
+    iget-object v0, p0, Landroid/app/ActivityThread$H;->this$0:Landroid/app/ActivityThread;
+
+    iget v1, p1, Landroid/os/Message;->arg1:I
+
+    invoke-virtual {v0, v1}, Landroid/app/ActivityThread;->handleShrinkMemory(I)V
+
+    goto :goto_0
+
+    :pswitch_1
+    iget-object v1, p0, Landroid/app/ActivityThread$H;->this$0:Landroid/app/ActivityThread;
+
+    iget-object v0, p1, Landroid/os/Message;->obj:Ljava/lang/Object;
+
+    check-cast v0, Landroid/app/FlymeActivityThreadInjector$ScrollActivityData;
+
+    invoke-virtual {v1, v0}, Landroid/app/ActivityThread;->handleScrollActivity(Landroid/app/FlymeActivityThreadInjector$ScrollActivityData;)V
+
+    goto :goto_0
+
+    :pswitch_data_0
+    .packed-switch 0xcb
+        :pswitch_0
+        :pswitch_1
     .end packed-switch
 .end method

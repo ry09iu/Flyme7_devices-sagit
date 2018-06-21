@@ -19,6 +19,11 @@
 
 
 # instance fields
+
+.field mFlymeHeadsUp:I
+
+.field mFlymeRemind:Z
+
 .field importance:I
 
 .field pkg:Ljava/lang/String;
@@ -50,26 +55,23 @@
     .prologue
     const/16 v1, -0x3e8
 
-    .line 548
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 552
     sget v0, Lcom/android/server/notification/RankingHelper$Record;->UNKNOWN_UID:I
 
     iput v0, p0, Lcom/android/server/notification/RankingHelper$Record;->uid:I
 
-    .line 553
     iput v1, p0, Lcom/android/server/notification/RankingHelper$Record;->importance:I
 
-    .line 554
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/server/notification/RankingHelper$Record;->priority:I
 
-    .line 555
     iput v1, p0, Lcom/android/server/notification/RankingHelper$Record;->visibility:I
 
-    .line 548
+
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/notification/RankingHelper$Record;->initFlymeExtraFields()V
+
     return-void
 .end method
 
@@ -78,6 +80,21 @@
 
     .prologue
     invoke-direct {p0}, Lcom/android/server/notification/RankingHelper$Record;-><init>()V
+
+    return-void
+.end method
+
+.method private initFlymeExtraFields()V
+    .locals 1
+
+    .prologue
+    const/4 v0, -0x1
+
+    iput v0, p0, Lcom/android/server/notification/RankingHelper$Record;->mFlymeHeadsUp:I
+
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Lcom/android/server/notification/RankingHelper$Record;->mFlymeRemind:Z
 
     return-void
 .end method

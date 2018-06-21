@@ -1797,48 +1797,52 @@
 
     const/4 v11, 0x0
 
-    .line 485
     iget v8, p1, Lcom/android/server/am/TaskRecord;->mAffiliatedTaskId:I
 
     iget v9, p1, Lcom/android/server/am/TaskRecord;->taskId:I
 
     if-ne v8, v9, :cond_0
 
-    .line 486
     iget v8, p1, Lcom/android/server/am/TaskRecord;->mNextAffiliateTaskId:I
 
     if-eq v8, v10, :cond_2
 
-    .line 485
     :cond_0
     const/4 v0, 0x1
 
-    .line 489
     .local v0, "isAffiliated":Z
     :goto_0
+
+    invoke-direct/range {p0 .. p1}, Lcom/android/server/am/RecentTasks;->isFlymeAccessApplication(Lcom/android/server/am/TaskRecord;)Z
+
+    move-result v5
+
+    if-nez v5, :cond_flyme_0
+
+    return-void
+
+    :cond_flyme_0
+
     invoke-virtual {p0}, Lcom/android/server/am/RecentTasks;->size()I
 
     move-result v5
 
-    .line 493
     .local v5, "recentsCount":I
     iget-object v8, p1, Lcom/android/server/am/TaskRecord;->voiceSession:Landroid/service/voice/IVoiceInteractionSession;
 
     if-eqz v8, :cond_4
 
-    .line 494
     sget-boolean v8, Lcom/android/server/am/ActivityManagerDebugConfig;->DEBUG_RECENTS:Z
 
     if-eqz v8, :cond_1
 
     sget-object v8, Lcom/android/server/am/RecentTasks;->TAG_RECENTS:Ljava/lang/String;
 
-    .line 495
     new-instance v9, Ljava/lang/StringBuilder;
 
     invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v10, "addRecent: not adding voice interaction "
+    const-string v10, "addRecent: not adding voice interaction "
 
     invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3904,4 +3908,47 @@
     .line 207
     :cond_2
     return-object v4
+.end method
+
+.method private isFlymeAccessApplication(Lcom/android/server/am/TaskRecord;)Z
+    .locals 2
+    .param p1, "task"    # Lcom/android/server/am/TaskRecord;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/am/RecentTasks;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v0, v0, Lcom/android/server/am/ActivityManagerService;->mStackSupervisor:Lcom/android/server/am/ActivityStackSupervisor;
+
+    iget-object v1, p1, Lcom/android/server/am/TaskRecord;->stack:Lcom/android/server/am/ActivityStack;
+
+    invoke-virtual {v0, v1}, Lcom/android/server/am/ActivityStackSupervisor;->isFocusedStack(Lcom/android/server/am/ActivityStack;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {p1}, Lcom/android/server/am/TaskRecord;->topRunningActivityLocked()Lcom/android/server/am/ActivityRecord;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p1}, Lcom/android/server/am/TaskRecord;->topRunningActivityLocked()Lcom/android/server/am/ActivityRecord;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/android/server/am/ActivityRecord;->isAccessApplication()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    return v0
 .end method

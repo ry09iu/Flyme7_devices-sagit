@@ -21,6 +21,9 @@
 
 
 # static fields
+
+.field mFlymeLooper:Landroid/os/Looper;
+
 .field static final DEBUG:Z = false
 
 .field private static final MIUI_VER:Ljava/lang/String; = "miui-ver"
@@ -800,90 +803,72 @@
     .param p2, "handler"    # Landroid/os/Handler;
 
     .prologue
-    .line 300
     invoke-direct {p0}, Lcom/android/internal/app/IAppOpsService$Stub;-><init>()V
 
-    .line 154
     new-instance v0, Lcom/android/server/AppOpsService$1;
 
     invoke-direct {v0, p0}, Lcom/android/server/AppOpsService$1;-><init>(Lcom/android/server/AppOpsService;)V
 
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mWriteRunner:Ljava/lang/Runnable;
 
-    .line 170
     new-instance v0, Landroid/util/SparseArray;
 
     invoke-direct {v0}, Landroid/util/SparseArray;-><init>()V
 
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mUidStates:Landroid/util/SparseArray;
 
-    .line 175
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mOpUserRestrictions:Landroid/util/ArrayMap;
 
-    .line 230
     new-instance v0, Landroid/util/SparseArray;
 
     invoke-direct {v0}, Landroid/util/SparseArray;-><init>()V
 
-    .line 229
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mOpModeWatchers:Landroid/util/SparseArray;
 
-    .line 232
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
-    .line 231
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mPackageModeWatchers:Landroid/util/ArrayMap;
 
-    .line 234
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
-    .line 233
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mModeWatchers:Landroid/util/ArrayMap;
 
-    .line 236
     new-instance v0, Landroid/util/SparseArray;
 
     invoke-direct {v0}, Landroid/util/SparseArray;-><init>()V
 
-    .line 235
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mAudioRestrictions:Landroid/util/SparseArray;
 
-    .line 259
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mClients:Landroid/util/ArrayMap;
 
-    .line 301
     new-instance v0, Landroid/util/AtomicFile;
 
     invoke-direct {v0, p1}, Landroid/util/AtomicFile;-><init>(Ljava/io/File;)V
 
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mFile:Landroid/util/AtomicFile;
 
-    .line 302
     iput-object p2, p0, Lcom/android/server/AppOpsService;->mHandler:Landroid/os/Handler;
 
-    .line 303
     invoke-virtual {p0}, Lcom/android/server/AppOpsService;->readState()V
 
-    .line 304
     new-instance v0, Lcom/android/server/AppOpsServiceState;
 
     invoke-direct {v0}, Lcom/android/server/AppOpsServiceState;-><init>()V
 
     iput-object v0, p0, Lcom/android/server/AppOpsService;->mServiceState:Lcom/android/server/AppOpsServiceState;
 
-    .line 300
     return-void
 .end method
 
@@ -7542,6 +7527,9 @@
     return v6
 
     :cond_3
+
+    invoke-direct/range {p0 .. p4}, Lcom/android/server/AppOpsService;->askFlymeOpsOperation(ILjava/lang/String;ILjava/lang/String;)V
+
     move-object v4, p0
 
     move v5, p1
@@ -7663,16 +7651,16 @@
 
     if-gtz v2, :cond_2
 
-    .line 422
     iget-object v2, p0, Lcom/android/server/AppOpsService;->mUidStates:Landroid/util/SparseArray;
 
     invoke-virtual {v2, p1}, Landroid/util/SparseArray;->remove(I)V
 
-    .line 425
+
+    invoke-static/range {p1 .. p1}, Lmeizu/security/FlymePermissionManager;->clearOpsOperation(I)V
+
     :cond_2
     if-eqz v0, :cond_3
 
-    .line 426
     invoke-direct {p0}, Lcom/android/server/AppOpsService;->scheduleFastWriteLocked()V
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
@@ -11773,50 +11761,42 @@
     .locals 3
 
     .prologue
-    .line 441
-    const-string/jumbo v1, "AppOps"
+    const-string v1, "AppOps"
 
-    const-string/jumbo v2, "Writing app ops before shutdown..."
+    const-string v2, "Writing app ops before shutdown..."
 
     invoke-static {v1, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 442
     const/4 v0, 0x0
 
-    .line 443
     .local v0, "doWrite":Z
     monitor-enter p0
 
-    .line 444
     :try_start_0
     iget-boolean v1, p0, Lcom/android/server/AppOpsService;->mWriteScheduled:Z
 
     if-eqz v1, :cond_0
 
-    .line 445
     const/4 v1, 0x0
 
     iput-boolean v1, p0, Lcom/android/server/AppOpsService;->mWriteScheduled:Z
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 446
     const/4 v0, 0x1
 
     :cond_0
     monitor-exit p0
 
-    .line 449
     if-eqz v0, :cond_1
 
-    .line 450
     invoke-virtual {p0}, Lcom/android/server/AppOpsService;->writeState()V
 
-    .line 440
+    invoke-static {}, Lmeizu/security/FlymePermissionManager;->writeOpAskState()V
+
     :cond_1
     return-void
 
-    .line 443
     :catchall_0
     move-exception v1
 
@@ -12994,17 +12974,14 @@
 
     monitor-exit p0
 
-    .line 377
     const-class v17, Landroid/os/storage/MountServiceInternal;
 
-    .line 376
     invoke-static/range {v17 .. v17}, Lcom/android/server/LocalServices;->getService(Ljava/lang/Class;)Ljava/lang/Object;
 
     move-result-object v11
 
     check-cast v11, Landroid/os/storage/MountServiceInternal;
 
-    .line 379
     .local v11, "mountServiceInternal":Landroid/os/storage/MountServiceInternal;
     new-instance v17, Lcom/android/server/AppOpsService$2;
 
@@ -13055,12 +13032,13 @@
 
     if-ltz v0, :cond_0
 
-    .line 434
     iget-object v0, p0, Lcom/android/server/AppOpsService;->mUidStates:Landroid/util/SparseArray;
 
     invoke-virtual {v0, p1}, Landroid/util/SparseArray;->remove(I)V
 
-    .line 435
+
+    invoke-static/range {p1 .. p1}, Lmeizu/security/FlymePermissionManager;->clearOpsOperation(I)V
+
     invoke-direct {p0}, Lcom/android/server/AppOpsService;->scheduleFastWriteLocked()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
@@ -14174,4 +14152,48 @@
     .catchall {:try_start_c .. :try_end_c} :catchall_2
 
     goto :goto_5
+.end method
+
+.method private askFlymeOpsOperation(ILjava/lang/String;ILjava/lang/String;)V
+    .locals 3
+    .param p1, "code"    # I
+    .param p2, "proxyPackageName"    # Ljava/lang/String;
+    .param p3, "proxiedUid"    # I
+    .param p4, "proxiedPackageName"    # Ljava/lang/String;
+
+    .prologue
+    invoke-static {p3, p4}, Lcom/android/server/AppOpsService;->resolvePackageName(ILjava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .local v0, "resolveProxiedPackageName":Ljava/lang/String;
+    invoke-static {}, Landroid/os/Looper;->myLooper()Landroid/os/Looper;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/server/AppOpsService;->mFlymeLooper:Landroid/os/Looper;
+
+    if-eq v1, v2, :cond_0
+
+    invoke-static {p1}, Landroid/app/AppOpsManager;->opToSwitch(I)I
+
+    move-result v1
+
+    invoke-static {p3, v0, v1}, Lmeizu/security/FlymePermissionManager;->askOpsOperation(ILjava/lang/String;I)V
+
+    :cond_0
+    return-void
+.end method
+
+.method private initFlymeExtraFields()V
+    .locals 1
+
+    .prologue
+    invoke-static {}, Landroid/os/Looper;->myLooper()Landroid/os/Looper;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/server/AppOpsService;->mFlymeLooper:Landroid/os/Looper;
+
+    return-void
 .end method

@@ -344,10 +344,8 @@
 
     iget-object v1, v1, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
 
-    .line 526
-    const v2, 0x106005b
+    const v2, #android:color@system_notification_accent_color#t
 
-    .line 525
     invoke-virtual {v1, v2}, Landroid/content/Context;->getColor(I)I
 
     move-result v1
@@ -369,25 +367,20 @@
 
     new-array v2, v2, [Ljava/lang/Object;
 
-    .line 532
     const/4 v4, 0x0
 
     aput-object v14, v2, v4
 
-    .line 530
-    const v4, 0x1040384
+    const v4, #android:string@app_running_notification_title#t
 
-    .line 529
     invoke-virtual {v1, v4, v2}, Landroid/content/Context;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 528
     move-object/from16 v0, v19
 
     invoke-virtual {v0, v1}, Landroid/app/Notification$Builder;->setContentTitle(Ljava/lang/CharSequence;)Landroid/app/Notification$Builder;
 
-    .line 534
     move-object/from16 v0, p0
 
     iget-object v1, v0, Lcom/android/server/am/ServiceRecord$1;->this$0:Lcom/android/server/am/ServiceRecord;
@@ -400,28 +393,22 @@
 
     new-array v2, v2, [Ljava/lang/Object;
 
-    .line 537
     const/4 v4, 0x0
 
     aput-object v14, v2, v4
 
-    .line 535
-    const v4, 0x1040385
+    const v4, #android:string@app_running_notification_text#t
 
-    .line 534
     invoke-virtual {v1, v4, v2}, Landroid/content/Context;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 533
     move-object/from16 v0, v19
 
     invoke-virtual {v0, v1}, Landroid/app/Notification$Builder;->setContentText(Ljava/lang/CharSequence;)Landroid/app/Notification$Builder;
 
-    .line 538
     invoke-virtual/range {v19 .. v20}, Landroid/app/Notification$Builder;->setContentIntent(Landroid/app/PendingIntent;)Landroid/app/Notification$Builder;
 
-    .line 540
     invoke-virtual/range {v19 .. v19}, Landroid/app/Notification$Builder;->build()Landroid/app/Notification;
     :try_end_1
     .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_1 .. :try_end_1} :catch_1
@@ -429,7 +416,6 @@
 
     move-result-object v11
 
-    .line 544
     .end local v3    # "runningIntent":Landroid/content/Intent;
     .end local v14    # "appName":Ljava/lang/CharSequence;
     .end local v15    # "ctx":Landroid/content/Context;
@@ -562,22 +548,18 @@
 
     move-result-object v6
 
-    .line 564
     invoke-virtual {v1, v2, v4, v5, v6}, Lcom/android/server/am/ActivityManagerService;->crashApplication(IILjava/lang/String;Ljava/lang/String;)V
 
-    .line 475
     .end local v17    # "e":Ljava/lang/RuntimeException;
     :goto_1
     return-void
 
-    .line 552
     :cond_3
     const/4 v1, 0x1
 
     :try_start_3
     new-array v12, v1, [I
 
-    .line 553
     .local v12, "outId":[I
     move-object/from16 v0, p0
 

@@ -29,6 +29,9 @@
 
 
 # instance fields
+
+.field mFlymeStableInsetTop:I
+
 .field private mAllowUpdateElevation:Z
 
 .field private mApplyFloatingHorizontalInsets:Z
@@ -255,294 +258,236 @@
     .param p4, "params"    # Landroid/view/WindowManager$LayoutParams;
 
     .prologue
-    .line 237
     invoke-direct {p0, p1}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
 
-    .line 126
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mAllowUpdateElevation:Z
 
-    .line 128
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mElevationAdjustedForStack:Z
 
-    .line 130
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mDefaultOpacity:I
 
-    .line 135
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mDrawingBounds:Landroid/graphics/Rect;
 
-    .line 137
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mBackgroundPadding:Landroid/graphics/Rect;
 
-    .line 139
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mFramePadding:Landroid/graphics/Rect;
 
-    .line 141
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mFrameOffsets:Landroid/graphics/Rect;
 
-    .line 143
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mHasCaption:Z
 
-    .line 166
     new-instance v0, Lcom/android/internal/policy/DecorView$ColorViewState;
 
-    .line 169
-    const-string/jumbo v6, "android:status:background"
+    const-string v6, "android:status:background"
 
-    .line 167
     const/4 v1, 0x4
 
     const/high16 v2, 0x4000000
 
-    .line 168
     const/16 v3, 0x30
 
     const/4 v4, 0x3
 
     const/4 v5, 0x5
 
-    .line 170
-    const v7, 0x102002f
+    const v7, #android:id@statusBarBackground#t
 
-    .line 171
     const/16 v8, 0x400
 
-    .line 166
     invoke-direct/range {v0 .. v8}, Lcom/android/internal/policy/DecorView$ColorViewState;-><init>(IIIIILjava/lang/String;II)V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mStatusColorViewState:Lcom/android/internal/policy/DecorView$ColorViewState;
 
-    .line 172
     new-instance v0, Lcom/android/internal/policy/DecorView$ColorViewState;
 
-    .line 175
-    const-string/jumbo v6, "android:navigation:background"
+    const-string v6, "android:navigation:background"
 
-    .line 173
     const/4 v1, 0x2
 
     const/high16 v2, 0x8000000
 
-    .line 174
     const/16 v3, 0x50
 
     const/4 v4, 0x5
 
     const/4 v5, 0x3
 
-    .line 176
-    const v7, 0x1020030
+    const v7, #android:id@navigationBarBackground#t
 
-    .line 177
     const/4 v8, 0x0
 
-    .line 172
     invoke-direct/range {v0 .. v8}, Lcom/android/internal/policy/DecorView$ColorViewState;-><init>(IIIIILjava/lang/String;II)V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mNavigationColorViewState:Lcom/android/internal/policy/DecorView$ColorViewState;
 
-    .line 185
     new-instance v0, Lcom/android/internal/widget/BackgroundFallback;
 
     invoke-direct {v0}, Lcom/android/internal/widget/BackgroundFallback;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mBackgroundFallback:Lcom/android/internal/widget/BackgroundFallback;
 
-    .line 187
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mLastTopInset:I
 
-    .line 188
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mLastBottomInset:I
 
-    .line 189
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mLastRightInset:I
 
-    .line 190
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mLastLeftInset:I
 
-    .line 191
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mLastHasTopStableInset:Z
 
-    .line 192
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mLastHasBottomStableInset:Z
 
-    .line 193
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mLastHasRightStableInset:Z
 
-    .line 194
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mLastHasLeftStableInset:Z
 
-    .line 195
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mLastWindowFlags:I
 
-    .line 196
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mLastShouldAlwaysConsumeNavBar:Z
 
-    .line 198
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mRootScrollY:I
 
-    .line 205
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mOutsets:Landroid/graphics/Rect;
 
-    .line 216
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mWindowResizeCallbacksAdded:Z
 
-    .line 217
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mLastBackgroundDrawableCb:Landroid/graphics/drawable/Drawable$Callback;
 
-    .line 218
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mBackdropFrameRenderer:Lcom/android/internal/policy/BackdropFrameRenderer;
 
-    .line 225
-    const-string/jumbo v0, "DecorView"
+    const-string v0, "DecorView"
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mLogTag:Ljava/lang/String;
 
-    .line 226
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mFloatingInsets:Landroid/graphics/Rect;
 
-    .line 227
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mApplyFloatingVerticalInsets:Z
 
-    .line 228
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mApplyFloatingHorizontalInsets:Z
 
-    .line 230
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mResizeMode:I
 
-    .line 232
     new-instance v0, Landroid/graphics/Paint;
 
     invoke-direct {v0}, Landroid/graphics/Paint;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mVerticalResizeShadowPaint:Landroid/graphics/Paint;
 
-    .line 233
     new-instance v0, Landroid/graphics/Paint;
 
     invoke-direct {v0}, Landroid/graphics/Paint;-><init>()V
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mHorizontalResizeShadowPaint:Landroid/graphics/Paint;
 
-    .line 238
     iput p2, p0, Lcom/android/internal/policy/DecorView;->mFeatureId:I
 
-    .line 241
-    const v0, 0x10c000e
+    const v0, #android:interpolator@linear_out_slow_in#t
 
-    .line 240
     invoke-static {p1, v0}, Landroid/view/animation/AnimationUtils;->loadInterpolator(Landroid/content/Context;I)Landroid/view/animation/Interpolator;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mShowInterpolator:Landroid/view/animation/Interpolator;
 
-    .line 243
-    const v0, 0x10c000f
+    const v0, #android:interpolator@fast_out_linear_in#t
 
-    .line 242
     invoke-static {p1, v0}, Landroid/view/animation/AnimationUtils;->loadInterpolator(Landroid/content/Context;I)Landroid/view/animation/Interpolator;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mHideInterpolator:Landroid/view/animation/Interpolator;
 
-    .line 245
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 246
-    const v1, 0x10e00d7
+    const v1, #android:integer@dock_enter_exit_duration#t
 
-    .line 245
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
     move-result v0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mBarEnterExitDuration:I
 
-    .line 247
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 248
-    const v1, 0x11200b0
+    const v1, #android:bool@config_forceWindowDrawsStatusBarBackground#t
 
-    .line 247
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
     move-result v0
 
     if-eqz v0, :cond_1
 
-    .line 249
     invoke-virtual {p1}, Landroid/content/Context;->getApplicationInfo()Landroid/content/pm/ApplicationInfo;
 
     move-result-object v0
@@ -555,64 +500,50 @@
 
     const/4 v0, 0x1
 
-    .line 247
     :goto_0
     iput-boolean v0, p0, Lcom/android/internal/policy/DecorView;->mForceWindowDrawsStatusBarBackground:Z
 
-    .line 250
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 251
-    const v1, 0x1060074
+    const v1, #android:color@system_bar_background_semi_transparent#t
 
     const/4 v2, 0x0
 
-    .line 250
     invoke-virtual {v0, v1, v2}, Landroid/content/res/Resources;->getColor(ILandroid/content/res/Resources$Theme;)I
 
     move-result v0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mSemiTransparentStatusBarColor:I
 
-    .line 253
     invoke-direct {p0}, Lcom/android/internal/policy/DecorView;->updateAvailableWidth()V
 
-    .line 255
     invoke-virtual {p0, p3}, Lcom/android/internal/policy/DecorView;->setWindow(Lcom/android/internal/policy/PhoneWindow;)V
 
-    .line 257
     invoke-virtual {p0, p4}, Lcom/android/internal/policy/DecorView;->updateLogTag(Landroid/view/WindowManager$LayoutParams;)V
 
-    .line 259
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 260
-    const v1, 0x10500c0
+    const v1, #android:dimen@resize_shadow_size#t
 
-    .line 259
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v0
 
     iput v0, p0, Lcom/android/internal/policy/DecorView;->mResizeShadowSize:I
 
-    .line 261
     invoke-direct {p0}, Lcom/android/internal/policy/DecorView;->initResizingPaints()V
 
-    .line 236
     return-void
 
-    .line 249
     :cond_0
     const/4 v0, 0x0
 
     goto :goto_0
 
-    .line 247
     :cond_1
     const/4 v0, 0x0
 
@@ -665,6 +596,11 @@
 
     :cond_1
     :goto_0
+
+    invoke-static {p0, v0}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeCalculateStatusBarColor(Lcom/android/internal/policy/DecorView;I)I
+
+    move-result v1
+
     return v1
 
     .line 1143
@@ -1103,18 +1039,15 @@
 
     move-result-object v2
 
-    .line 1612
     .local v2, "baseTheme":Landroid/content/res/Resources$Theme;
-    const v7, 0x1010431
+    const v7, #android:attr@actionBarTheme#t
 
     invoke-virtual {v2, v7, v5, v8}, Landroid/content/res/Resources$Theme;->resolveAttribute(ILandroid/util/TypedValue;Z)Z
 
-    .line 1615
     iget v7, v5, Landroid/util/TypedValue;->resourceId:I
 
     if-eqz v7, :cond_2
 
-    .line 1616
     iget-object v7, p0, Lcom/android/internal/policy/DecorView;->mContext:Landroid/content/Context;
 
     invoke-virtual {v7}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
@@ -1158,55 +1091,42 @@
 
     iput-object v7, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionModeView:Lcom/android/internal/widget/ActionBarContextView;
 
-    .line 1627
     new-instance v7, Landroid/widget/PopupWindow;
 
-    .line 1628
-    const v10, 0x116001e
+    const v10, #android:^attr-private@actionModePopupWindowStyle#t
 
-    .line 1627
     invoke-direct {v7, v0, v11, v10}, Landroid/widget/PopupWindow;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
     iput-object v7, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionModePopup:Landroid/widget/PopupWindow;
 
-    .line 1629
     iget-object v7, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionModePopup:Landroid/widget/PopupWindow;
 
-    .line 1630
     const/4 v10, 0x2
 
-    .line 1629
     invoke-virtual {v7, v10}, Landroid/widget/PopupWindow;->setWindowLayoutType(I)V
 
-    .line 1631
     iget-object v7, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionModePopup:Landroid/widget/PopupWindow;
 
     iget-object v10, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionModeView:Lcom/android/internal/widget/ActionBarContextView;
 
     invoke-virtual {v7, v10}, Landroid/widget/PopupWindow;->setContentView(Landroid/view/View;)V
 
-    .line 1632
     iget-object v7, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionModePopup:Landroid/widget/PopupWindow;
 
     const/4 v10, -0x1
 
     invoke-virtual {v7, v10}, Landroid/widget/PopupWindow;->setWidth(I)V
 
-    .line 1634
     invoke-virtual {v0}, Landroid/content/Context;->getTheme()Landroid/content/res/Resources$Theme;
 
     move-result-object v7
 
-    .line 1635
-    const v10, 0x10102eb
+    const v10, #android:attr@actionBarSize#t
 
-    .line 1634
     invoke-virtual {v7, v10, v5, v8}, Landroid/content/res/Resources$Theme;->resolveAttribute(ILandroid/util/TypedValue;Z)Z
 
-    .line 1636
     iget v7, v5, Landroid/util/TypedValue;->data:I
 
-    .line 1637
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v10
@@ -1256,7 +1176,7 @@
     .end local v2    # "baseTheme":Landroid/content/res/Resources$Theme;
     .end local v5    # "outValue":Landroid/util/TypedValue;
     :cond_3
-    const v7, 0x102040a
+    const v7, #android:id@action_mode_bar_stub#t
 
     invoke-virtual {p0, v7}, Lcom/android/internal/policy/DecorView;->findViewById(I)Landroid/view/View;
 
@@ -2052,31 +1972,25 @@
     .param p1, "inflater"    # Landroid/view/LayoutInflater;
 
     .prologue
-    .line 1896
     invoke-virtual {p0}, Lcom/android/internal/policy/DecorView;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 1898
     .local v0, "context":Landroid/content/Context;
     invoke-static {v0}, Landroid/view/LayoutInflater;->from(Landroid/content/Context;)Landroid/view/LayoutInflater;
 
     move-result-object p1
 
-    .line 1899
-    const v2, 0x109004f
+    const v2, #android:layout@decor_caption#t
 
-    .line 1900
     const/4 v3, 0x0
 
-    .line 1899
     invoke-virtual {p1, v2, v3}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
 
     move-result-object v1
 
     check-cast v1, Lcom/android/internal/widget/DecorCaptionView;
 
-    .line 1903
     .local v1, "view":Lcom/android/internal/widget/DecorCaptionView;
     return-object v1
 .end method
@@ -2085,24 +1999,20 @@
     .locals 12
 
     .prologue
-    .line 2104
     iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 2105
-    const v1, 0x1060075
+    const v1, #android:color@resize_shadow_start_color#t
 
     const/4 v2, 0x0
 
-    .line 2104
     invoke-virtual {v0, v1, v2}, Landroid/content/res/Resources;->getColor(ILandroid/content/res/Resources$Theme;)I
 
     move-result v10
 
-    .line 2106
     .local v10, "startColor":I
     iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mContext:Landroid/content/Context;
 
@@ -2110,29 +2020,24 @@
 
     move-result-object v0
 
-    .line 2107
-    const v1, 0x1060076
+    const v1, #android:color@resize_shadow_end_color#t
 
     const/4 v2, 0x0
 
-    .line 2106
     invoke-virtual {v0, v1, v2}, Landroid/content/res/Resources;->getColor(ILandroid/content/res/Resources$Theme;)I
 
     move-result v8
 
-    .line 2108
     .local v8, "endColor":I
     add-int v0, v10, v8
 
     div-int/lit8 v9, v0, 0x2
 
-    .line 2109
     .local v9, "middleColor":I
     iget-object v11, p0, Lcom/android/internal/policy/DecorView;->mHorizontalResizeShadowPaint:Landroid/graphics/Paint;
 
     new-instance v0, Landroid/graphics/LinearGradient;
 
-    .line 2110
     const/4 v1, 0x0
 
     const/4 v2, 0x0
@@ -2472,34 +2377,28 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1854
     :cond_0
     iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mCaptionBackgroundDrawable:Landroid/graphics/drawable/Drawable;
 
     if-nez v0, :cond_1
 
-    .line 1855
     invoke-virtual {p0}, Lcom/android/internal/policy/DecorView;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
-    .line 1856
-    const v1, 0x1080258
+    const v1, #android:drawable@decor_caption_title_focused#t
 
-    .line 1855
     invoke-virtual {v0, v1}, Landroid/content/Context;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/internal/policy/DecorView;->mCaptionBackgroundDrawable:Landroid/graphics/drawable/Drawable;
 
-    .line 1858
     :cond_1
     iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mResizingBackgroundDrawable:Landroid/graphics/drawable/Drawable;
 
     if-eqz v0, :cond_2
 
-    .line 1859
     iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mResizingBackgroundDrawable:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->getCallback()Landroid/graphics/drawable/Drawable$Callback;
@@ -2576,33 +2475,26 @@
     .param p1, "view"    # Lcom/android/internal/widget/DecorCaptionView;
 
     .prologue
-    .line 1945
-    const v0, 0x1020368
+    const v0, #android:id@maximize_window#t
 
     invoke-virtual {p1, v0}, Lcom/android/internal/widget/DecorCaptionView;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 1946
-    const v1, 0x108025c
+    const v1, #android:drawable@decor_maximize_button_dark#t
 
-    .line 1945
     invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 1947
-    const v0, 0x1020369
+    const v0, #android:id@close_window#t
 
     invoke-virtual {p1, v0}, Lcom/android/internal/widget/DecorCaptionView;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 1948
-    const v1, 0x108025a
+    const v1, #android:drawable@decor_close_button_dark#t
 
-    .line 1947
     invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 1944
     return-void
 .end method
 
@@ -2634,7 +2526,7 @@
 
     move-result-object v2
 
-    const v3, 0x1010433
+    const v3, #android:attr@colorPrimary#t
 
     const/4 v4, 0x1
 
@@ -2893,33 +2785,26 @@
     .param p1, "view"    # Lcom/android/internal/widget/DecorCaptionView;
 
     .prologue
-    .line 1938
-    const v0, 0x1020368
+    const v0, #android:id@maximize_window#t
 
     invoke-virtual {p1, v0}, Lcom/android/internal/widget/DecorCaptionView;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 1939
-    const v1, 0x108025d
+    const v1, #android:drawable@decor_maximize_button_light#t
 
-    .line 1938
     invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 1940
-    const v0, 0x1020369
+    const v0, #android:id@close_window#t
 
     invoke-virtual {p1, v0}, Lcom/android/internal/widget/DecorCaptionView;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 1941
-    const v1, 0x108025b
+    const v1, #android:drawable@decor_close_button_light#t
 
-    .line 1940
     invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 1937
     return-void
 .end method
 
@@ -3366,7 +3251,11 @@
     .param p9, "force"    # Z
 
     .prologue
-    .line 1170
+
+    invoke-static/range {p0 .. p4}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeGetDisplayMetricsHeight(Lcom/android/internal/policy/DecorView;Lcom/android/internal/policy/DecorView$ColorViewState;III)I
+
+    move-result p4
+
     move-object/from16 v0, p1
 
     iget v13, v0, Lcom/android/internal/policy/DecorView$ColorViewState;->systemUiHideFlag:I
@@ -4230,22 +4119,18 @@
 
     iput-object v2, p0, Lcom/android/internal/policy/DecorView;->mNavigationGuard:Landroid/view/View;
 
-    .line 1356
     iget-object v2, p0, Lcom/android/internal/policy/DecorView;->mNavigationGuard:Landroid/view/View;
 
     iget-object v3, p0, Lcom/android/internal/policy/DecorView;->mContext:Landroid/content/Context;
 
-    .line 1357
-    const v4, 0x1060032
+    const v4, #android:color@input_method_navigation_guard#t
 
-    .line 1356
     invoke-virtual {v3, v4}, Landroid/content/Context;->getColor(I)I
 
     move-result v3
 
     invoke-virtual {v2, v3}, Landroid/view/View;->setBackgroundColor(I)V
 
-    .line 1358
     iget-object v2, p0, Lcom/android/internal/policy/DecorView;->mNavigationGuard:Landroid/view/View;
 
     iget-object v3, p0, Lcom/android/internal/policy/DecorView;->mNavigationColorViewState:Lcom/android/internal/policy/DecorView$ColorViewState;
@@ -4432,22 +4317,18 @@
 
     iput-object v7, p0, Lcom/android/internal/policy/DecorView;->mStatusGuard:Landroid/view/View;
 
-    .line 1296
     iget-object v7, p0, Lcom/android/internal/policy/DecorView;->mStatusGuard:Landroid/view/View;
 
     iget-object v9, p0, Lcom/android/internal/policy/DecorView;->mContext:Landroid/content/Context;
 
-    .line 1297
-    const v10, 0x1060032
+    const v10, #android:color@input_method_navigation_guard#t
 
-    .line 1296
     invoke-virtual {v9, v10}, Landroid/content/Context;->getColor(I)I
 
     move-result v9
 
     invoke-virtual {v7, v9}, Landroid/view/View;->setBackgroundColor(I)V
 
-    .line 1298
     iget-object v7, p0, Lcom/android/internal/policy/DecorView;->mStatusGuard:Landroid/view/View;
 
     iget-object v9, p0, Lcom/android/internal/policy/DecorView;->mStatusColorViewState:Lcom/android/internal/policy/DecorView$ColorViewState;
@@ -4881,15 +4762,17 @@
 
     move-result v2
 
-    .line 324
     .restart local v2    # "handled":Z
     :goto_1
+
+    invoke-static/range {p0 .. p1}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeDispatchKeyEvent(Lcom/android/internal/policy/DecorView;Landroid/view/KeyEvent;)Z
+
+    move-result v2
+
     if-eqz v2, :cond_4
 
-    .line 325
     return v5
 
-    .line 323
     .end local v2    # "handled":Z
     :cond_3
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
@@ -5137,14 +5020,15 @@
     .param p1, "ev"    # Landroid/view/MotionEvent;
 
     .prologue
-    .line 376
+
+    invoke-static/range {p0 .. p1}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeDispatchTouchEvent(Lcom/android/internal/policy/DecorView;Landroid/view/MotionEvent;)V
+
     iget-object v1, p0, Lcom/android/internal/policy/DecorView;->mWindow:Lcom/android/internal/policy/PhoneWindow;
 
     invoke-virtual {v1}, Lcom/android/internal/policy/PhoneWindow;->getCallback()Landroid/view/Window$Callback;
 
     move-result-object v0
 
-    .line 377
     .local v0, "cb":Landroid/view/Window$Callback;
     if-eqz v0, :cond_0
 
@@ -5156,13 +5040,11 @@
 
     if-eqz v1, :cond_1
 
-    .line 378
     :cond_0
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->dispatchTouchEvent(Landroid/view/MotionEvent;)Z
 
     move-result v1
 
-    .line 377
     :goto_0
     return v1
 
@@ -5171,7 +5053,6 @@
 
     if-gez v1, :cond_0
 
-    .line 378
     invoke-interface {v0, p1}, Landroid/view/Window$Callback;->dispatchTouchEvent(Landroid/view/MotionEvent;)Z
 
     move-result v1
@@ -5184,14 +5065,14 @@
     .param p1, "ev"    # Landroid/view/MotionEvent;
 
     .prologue
-    .line 383
+    .line 376
     iget-object v1, p0, Lcom/android/internal/policy/DecorView;->mWindow:Lcom/android/internal/policy/PhoneWindow;
 
     invoke-virtual {v1}, Lcom/android/internal/policy/PhoneWindow;->getCallback()Landroid/view/Window$Callback;
 
     move-result-object v0
 
-    .line 384
+    .line 377
     .local v0, "cb":Landroid/view/Window$Callback;
     if-eqz v0, :cond_0
 
@@ -5231,20 +5112,19 @@
     .param p1, "canvas"    # Landroid/graphics/Canvas;
 
     .prologue
-    .line 756
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->draw(Landroid/graphics/Canvas;)V
 
-    .line 758
+
+    invoke-static/range {p0 .. p0}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeOnDecorViewDraw(Lcom/android/internal/policy/DecorView;)V
+
     iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mMenuBackground:Landroid/graphics/drawable/Drawable;
 
     if-eqz v0, :cond_0
 
-    .line 759
     iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mMenuBackground:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {v0, p1}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
 
-    .line 755
     :cond_0
     return-void
 .end method
@@ -8455,30 +8335,36 @@
 
     if-ne v1, v2, :cond_1
 
-    .line 398
     invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
 
     move-result v0
 
-    .line 400
     .local v0, "action":I
     iget-object v1, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionMode:Landroid/view/ActionMode;
 
     if-eqz v1, :cond_1
 
-    .line 401
+    invoke-static/range {p0 .. p1}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeSuperDispatchKeyEvent(Lcom/android/internal/policy/DecorView;Landroid/view/KeyEvent;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_flyme_0
+
+    const/4 v1, 0x1
+
+    return v1
+
+    :cond_flyme_0
+
     if-ne v0, v3, :cond_0
 
-    .line 402
     iget-object v1, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionMode:Landroid/view/ActionMode;
 
     invoke-virtual {v1}, Landroid/view/ActionMode;->finish()V
 
-    .line 404
     :cond_0
     return v3
 
-    .line 408
     .end local v0    # "action":I
     :cond_1
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->dispatchKeyEvent(Landroid/view/KeyEvent;)Z
@@ -8679,20 +8565,18 @@
 
     iput v2, v0, Lcom/android/internal/policy/DecorView;->mLastWindowFlags:I
 
-    .line 1026
     if-eqz p1, :cond_0
 
-    .line 1027
+    invoke-static/range {p0 .. p1}, Lcom/android/internal/policy/FlymeDecorViewInjector;->setFlymeStableInsetTop(Lcom/android/internal/policy/DecorView;Landroid/view/WindowInsets;)V
+
     invoke-virtual/range {p1 .. p1}, Landroid/view/WindowInsets;->getStableInsetTop()I
 
     move-result v2
 
-    .line 1028
     invoke-virtual/range {p1 .. p1}, Landroid/view/WindowInsets;->getSystemWindowInsetTop()I
 
     move-result v3
 
-    .line 1027
     invoke-static {v2, v3}, Lcom/android/internal/policy/DecorView;->getColorViewTopInset(II)I
 
     move-result v2
@@ -9696,4 +9580,40 @@
     const/4 v0, 0x0
 
     goto :goto_0
+.end method
+
+.method flymeGetFieldActionMode()Landroid/view/ActionMode;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mPrimaryActionMode:Landroid/view/ActionMode;
+
+    return-object v0
+.end method
+
+.method flymeGetFieldFeatureId()I
+    .locals 1
+
+    .prologue
+    iget v0, p0, Lcom/android/internal/policy/DecorView;->mFeatureId:I
+
+    return v0
+.end method
+
+.method flymeGetFieldStatusColorViewState()Lcom/android/internal/policy/DecorView$ColorViewState;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mStatusColorViewState:Lcom/android/internal/policy/DecorView$ColorViewState;
+
+    return-object v0
+.end method
+
+.method flymeGetFieldWindow()Lcom/android/internal/policy/PhoneWindow;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/policy/DecorView;->mWindow:Lcom/android/internal/policy/PhoneWindow;
+
+    return-object v0
 .end method
