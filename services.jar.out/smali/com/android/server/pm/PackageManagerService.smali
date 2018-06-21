@@ -42,7 +42,8 @@
         Lcom/android/server/pm/PackageManagerService$ProviderIntentResolver;,
         Lcom/android/server/pm/PackageManagerService$ServiceIntentResolver;,
         Lcom/android/server/pm/PackageManagerService$SharedLibraryEntry;,
-        Lcom/android/server/pm/PackageManagerService$VerificationInfo;
+        Lcom/android/server/pm/PackageManagerService$VerificationInfo;,
+        Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;
     }
 .end annotation
 
@@ -5674,6 +5675,8 @@
 
     :cond_35
     :goto_1e
+    invoke-static/range {p0 .. p0}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->initFlymeDefaultOpService(Lcom/android/server/pm/PackageManagerService;)V
+
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
     move-result-wide v26
@@ -9513,7 +9516,9 @@
     .end local v16    # "r1":Landroid/content/pm/ResolveInfo;
     .end local v17    # "ri":Landroid/content/pm/ResolveInfo;
     :cond_d
-    const/4 v2, 0x0
+    invoke-static/range {p0 .. p5}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->getResolveInfo(Lcom/android/server/pm/PackageManagerService;Landroid/content/Intent;Ljava/lang/String;ILjava/util/List;I)Landroid/content/pm/ResolveInfo;
+
+    move-result-object v2
 
     return-object v2
 .end method
@@ -24317,6 +24322,16 @@
 
     :cond_16
     :goto_9
+    move-object/from16 v0, p1
+
+    move-object/from16 v1, v19
+
+    move/from16 v2, v23
+
+    invoke-static {v0, v1, v7, v2, v11}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->grantFlymeRuntimePermission(Landroid/content/pm/PackageParser$Package;Lcom/android/server/pm/PermissionsState;Lcom/android/server/pm/BasePermission;II)I
+
+    move-result v11
+
     move-object/from16 v0, v19
 
     move/from16 v1, v23
@@ -25381,6 +25396,10 @@
 
     .line 10731
     .local v0, "allowed":Z
+    invoke-static {p2, p3, v0}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->grantExternalSystemPackagePermission(Landroid/content/pm/PackageParser$Package;Lcom/android/server/pm/BasePermission;Z)Z
+
+    move-result v0
+
     if-nez v0, :cond_0
 
     iget v7, p3, Lcom/android/server/pm/BasePermission;->protectionLevel:I
@@ -77072,12 +77091,33 @@
 
     and-int/lit16 v8, p1, 0x2000
 
-    if-eqz v8, :cond_3
+    if-eqz v8, :cond_flyme_0
 
     const/4 v3, 0x1
 
     .local v3, "listUninstalled":Z
     :goto_0
+    :goto_flyme_0
+
+    invoke-static {}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->isFlymePermissionGranted()Z
+
+    move-result v8
+
+    if-eqz v8, :cond_flyme_1
+
+    invoke-static {}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->getFlymeEmptyApplicationInfo()Landroid/content/pm/ParceledListSlice;
+
+    move-result-object v8
+
+    return-object v8
+
+    :cond_flyme_0
+    const/4 v3, 0x0
+
+    goto :goto_flyme_0
+
+    :cond_flyme_1
+
     const/4 v1, 0x1
 
     .local v1, "havePermission":Z
@@ -77345,7 +77385,7 @@
 
     and-int/lit16 v3, v0, 0x2000
 
-    if-eqz v3, :cond_3
+    if-eqz v3, :cond_flyme_0
 
     const/4 v11, 0x1
 
@@ -77369,6 +77409,25 @@
     move/from16 v5, p2
 
     invoke-virtual/range {v3 .. v8}, Lcom/android/server/pm/PackageManagerService;->enforceCrossUserPermission(IIZZLjava/lang/String;)V
+
+    invoke-static {}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->isFlymePermissionGranted()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_flyme_1
+
+    invoke-static {}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->getFlymeEmptyPackageInfo()Landroid/content/pm/ParceledListSlice;
+
+    move-result-object v3
+
+    return-object v3
+
+    :cond_flyme_0
+    const/4 v11, 0x0
+
+    goto :goto_flyme_0
+
+    :cond_flyme_1
 
     const/4 v9, 0x1
 

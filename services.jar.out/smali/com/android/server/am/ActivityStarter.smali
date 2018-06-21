@@ -2836,6 +2836,8 @@
     if-eqz v3, :cond_13
 
     :cond_6
+    :cond_flyme_0
+
     :goto_9
     iput p5, p0, Lcom/android/server/am/ActivityStarter;->mStartFlags:I
 
@@ -2986,6 +2988,12 @@
     goto :goto_8
 
     :cond_13
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/am/ActivityStarter;->isFlymeAccessApplication()Z
+
+    move-result v3
+
+    if-nez v3, :cond_flyme_0
+
     sget-object v3, Lcom/android/server/am/ActivityStarter;->TAG:Ljava/lang/String;
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -9270,6 +9278,12 @@
     move-result-object v5
 
     .local v5, "aInfo":Landroid/content/pm/ActivityInfo;
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, v5
+
+    invoke-direct {v0, v1}, Lcom/android/server/am/ActivityStarter;->changeFlymeMayInterceptPackage(Landroid/content/pm/ActivityInfo;)V
+
     invoke-static {v6, v5}, Lcom/android/server/am/ActivityStackSupervisorInjector;->isAppLockActivity(Landroid/content/Intent;Landroid/content/pm/ActivityInfo;)Z
 
     move-result v4

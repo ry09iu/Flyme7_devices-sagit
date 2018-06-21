@@ -3304,6 +3304,20 @@
 
     .line 3366
     .local v3, "a":Landroid/view/animation/Animation;
+    move-object/from16 v0, p0
+
+    move/from16 v1, p3
+
+    move/from16 v2, p4
+
+    move-object/from16 v4, v3
+
+    move-object/from16 v3, v16
+
+    invoke-static/range {v0 .. v4}, Lcom/android/server/wm/FlymeWindowManagerServiceInjector;->createFlymeCustomAnimation(Lcom/android/server/wm/WindowManagerService;IZLandroid/view/DisplayInfo;Landroid/view/animation/Animation;)Landroid/view/animation/Animation;
+
+    move-result-object v3
+
     if-nez p4, :cond_3
 
     move-object/from16 v0, p0
@@ -13051,6 +13065,26 @@
 
     move-result v35
 
+    move-object/from16 v0, p0
+
+    invoke-static {v0, v2}, Lcom/android/server/wm/FlymeWindowManagerServiceInjector;->isFlymeInterceptWindow(Lcom/android/server/wm/WindowManagerService;Lcom/android/server/wm/WindowState;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_flyme_0
+
+    move-object/from16 v0, p0
+
+    invoke-static {v0, v2}, Lcom/android/server/wm/FlymeWindowManagerServiceInjector;->sendFlymeMessage(Lcom/android/server/wm/WindowManagerService;Lcom/android/server/wm/WindowState;)I
+
+    move-result v3
+
+    monitor-exit v39
+
+    return v3
+
+    :cond_flyme_0
+
     if-eqz v35, :cond_1f
 
     monitor-exit v39
@@ -17704,6 +17738,16 @@
     return-void
 
     :cond_3
+    invoke-static/range {p0 .. p0}, Lcom/android/server/wm/FlymeWindowManagerServiceInjector;->isFlymeIntercept(Lcom/android/server/wm/WindowManagerService;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_flyme_0
+
+    return-void
+
+    :cond_flyme_0
+
     if-nez p1, :cond_4
 
     new-instance v0, Ljava/lang/IllegalArgumentException;
@@ -30168,6 +30212,12 @@
     .restart local v20    # "origId":J
     :cond_1
     :try_start_1
+    move-object/from16 v0, p0
+
+    move/from16 v1, p7
+
+    invoke-static {v0, v1, v7}, Lcom/android/server/wm/FlymeWindowManagerServiceInjector;->resetOnWindowChanged(Lcom/android/server/wm/WindowManagerService;ILcom/android/server/wm/WindowState;)V
+
     move-object/from16 v0, p0
 
     iget-object v4, v0, Lcom/android/server/wm/WindowManagerService;->mAppOps:Landroid/app/AppOpsManager;

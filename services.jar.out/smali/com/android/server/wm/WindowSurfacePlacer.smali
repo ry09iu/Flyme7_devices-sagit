@@ -1937,6 +1937,9 @@
     .end local v21    # "win":Lcom/android/server/wm/WindowState;
     .local v10, "anim":Landroid/view/animation/Animation;
     :goto_2
+
+    :goto_flyme_0
+
     const-wide/16 v6, 0x2710
 
     invoke-virtual {v10, v6, v7}, Landroid/view/animation/Animation;->restrictDuration(J)V

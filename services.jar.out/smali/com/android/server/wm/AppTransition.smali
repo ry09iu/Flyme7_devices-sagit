@@ -99,6 +99,10 @@
 
 .field private mAnimationFinishedCallback:Landroid/os/IRemoteCallback;
 
+.field private mFlymeCustomTransition:Landroid/app/CustomTransition;
+
+.field private mFlymeCustomTransitionListener:Lcom/android/server/wm/FlymeCustomTransitionListener;
+
 .field private mAppTransitionState:I
 
 .field private final mClipHorizontalInterpolator:Landroid/view/animation/Interpolator;
@@ -393,6 +397,12 @@
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/server/wm/AppTransition;->mDefaultExecutor:Ljava/util/concurrent/ExecutorService;
+
+    new-instance v0, Lcom/android/server/wm/FlymeCustomTransitionListener;
+
+    invoke-direct {v0, p0}, Lcom/android/server/wm/FlymeCustomTransitionListener;-><init>(Lcom/android/server/wm/AppTransition;)V
+
+    iput-object v0, p0, Lcom/android/server/wm/AppTransition;->mFlymeCustomTransitionListener:Lcom/android/server/wm/FlymeCustomTransitionListener;
 
     new-instance v0, Landroid/graphics/Rect;
 
@@ -3204,6 +3214,8 @@
     iget-object v0, p0, Lcom/android/server/wm/AppTransition;->mLauncherAnimationRect:Landroid/graphics/Rect;
 
     invoke-virtual {v0}, Landroid/graphics/Rect;->setEmpty()V
+
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/wm/AppTransition;->clearFlymeCustomTransition()V
 
     return-void
 .end method

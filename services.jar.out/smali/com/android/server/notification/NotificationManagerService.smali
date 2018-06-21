@@ -11926,6 +11926,8 @@
 
     iput-object v1, v0, Lcom/android/server/notification/NotificationManagerService;->mConfigManager:Landroid/telephony/CarrierConfigManager;
 
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/notification/NotificationManagerService;->initFlymeExtraFields()V
+
     return-void
 
     .end local v4    # "pkgFilter":Landroid/content/IntentFilter;

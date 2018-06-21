@@ -73,6 +73,17 @@
     return-void
 
     :cond_0
+
+    invoke-direct/range {p0 .. p2}, Lcom/android/server/MasterClearReceiver;->flymeRebootWipeUserData(Landroid/content/Context;Landroid/content/Intent;)Z
+
+    move-result v5
+
+    if-eqz v5, :cond_flyme_0
+
+    return-void
+
+    :cond_flyme_0
+
     const-string v5, "shutdown"
 
     invoke-virtual {p2, v5, v7}, Landroid/content/Intent;->getBooleanExtra(Ljava/lang/String;Z)Z

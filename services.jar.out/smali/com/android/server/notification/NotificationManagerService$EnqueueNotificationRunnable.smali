@@ -330,6 +330,13 @@
 
     invoke-virtual {v6, v7}, Lcom/android/server/notification/NotificationUsageStats;->registerSuspendedByAdmin(Lcom/android/server/notification/NotificationRecord;)V
 
+    :goto_flyme_0
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/android/server/notification/NotificationManagerService$EnqueueNotificationRunnable;->this$0:Lcom/android/server/notification/NotificationManagerService;
+
+    invoke-virtual {v6, v12}, Lcom/android/server/notification/NotificationManagerService;->callFlymeReplyIntent(Landroid/service/notification/StatusBarNotification;)V
+
     .line 2735
     :goto_1
     invoke-static {}, Landroid/os/MiuiProcess;->resetPriorityAfterLockedSection()V

@@ -6692,6 +6692,9 @@
     invoke-static/range {v4 .. v9}, Lcom/android/server/am/ActivityManagerServiceInjector;->handleWindowManagerAndUserLru(Landroid/content/Context;IIILcom/android/server/wm/WindowManagerService;[I)V
 
     :goto_1
+
+    :goto_flyme_0
+
     move-object/from16 v0, v34
 
     iget v4, v0, Lcom/android/server/am/UserState;->state:I

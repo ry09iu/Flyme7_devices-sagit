@@ -350,7 +350,7 @@
 
     sget-boolean v2, Lcom/android/server/power/ShutdownThread;->mReboot:Z
 
-    invoke-static {p0, v2}, Lcom/android/server/power/ShutdownThreadInjector;->showShutdownAnimOrDialog(Landroid/content/Context;Z)V
+    invoke-static/range {p0 .. p0}, Lcom/android/server/power/FlymeShutdownThreadInjector;->showShutDownAnimation(Landroid/content/Context;)V
 
     sget-object v2, Lcom/android/server/power/ShutdownThread;->sInstance:Lcom/android/server/power/ShutdownThread;
 

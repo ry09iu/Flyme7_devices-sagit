@@ -10187,6 +10187,8 @@
 
     .line 7909
     .local v8, "needsMenu":Z
+    invoke-static/range {p0 .. p0}, Lcom/android/server/policy/FlymePhoneWindowManagerInjector;->setFlymeStatusBarTheme(Lcom/android/server/policy/PhoneWindowManager;)V
+
     if-nez v9, :cond_7
 
     if-nez v11, :cond_7
@@ -21554,6 +21556,18 @@
     goto :goto_f
 
     :cond_3d
+    invoke-static/range {p0 .. p2}, Lcom/android/server/policy/FlymePhoneWindowManagerInjector;->handleLongPressOnHeadSetIfNeeded(Lcom/android/server/policy/PhoneWindowManager;Landroid/view/WindowManagerPolicy$WindowState;Landroid/view/KeyEvent;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_flyme_0
+
+    const-wide/16 v4, -0x1
+
+    return-wide v4
+
+    :cond_flyme_0
+
     move-object/from16 v0, p0
 
     iget-boolean v4, v0, Lcom/android/server/policy/PhoneWindowManager;->mSearchKeyShortcutPending:Z

@@ -3794,6 +3794,11 @@
 
     .line 3254
     .local v24, "settingsContext":Landroid/content/Context;
+
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/InputMethodManagerService;->getFlymeLightContext()Landroid/content/Context;
+
+    move-result-object v24
+
     new-instance v27, Lmiui/app/AlertDialog$Builder;
 
     move-object/from16 v0, v27
@@ -3810,7 +3815,7 @@
     .line 3255
     move-object/from16 v0, p0
 
-    move-object/from16 v1, v23
+    move-object/from16 v1, v24
 
     invoke-direct {v0, v1}, Lcom/android/server/InputMethodManagerService;->getFlymeLightAlertDialogBuilder(Landroid/content/Context;)V
 
@@ -4709,6 +4714,8 @@
     .end local v10    # "title":Ljava/lang/CharSequence;
     :cond_3
     :goto_1
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/InputMethodManagerService;->setFlymeImmSwitcherNotification()V
+
     invoke-static {v6, v7}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
     .line 1840

@@ -2719,7 +2719,7 @@
 
     move-result-object v1
 
-    const-string/jumbo v2, "com.android.systemui.recents"
+    const-string/jumbo v2, "com.flyme.systemui.recents"
 
     invoke-virtual {v1, v2}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 

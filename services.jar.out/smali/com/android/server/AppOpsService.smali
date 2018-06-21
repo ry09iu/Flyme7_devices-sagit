@@ -863,6 +863,8 @@
 
     invoke-virtual {p0}, Lcom/android/server/AppOpsService;->readState()V
 
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/AppOpsService;->initFlymeExtraFields()V
+
     new-instance v0, Lcom/android/server/AppOpsServiceState;
 
     invoke-direct {v0}, Lcom/android/server/AppOpsServiceState;-><init>()V
@@ -12973,6 +12975,8 @@
     .catchall {:try_start_5 .. :try_end_5} :catchall_0
 
     monitor-exit p0
+
+    invoke-static {}, Lmeizu/security/FlymePermissionManager;->systemReady()V
 
     const-class v17, Landroid/os/storage/MountServiceInternal;
 

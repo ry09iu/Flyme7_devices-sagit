@@ -595,6 +595,8 @@
 
     iput-object v2, p0, Lcom/android/server/wm/AppWindowAnimator;->thumbnail:Landroid/view/SurfaceControl;
 
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/wm/AppWindowAnimator;->clearFlymeThumbnail()V
+
     :cond_1
     const/4 v0, 0x0
 
