@@ -1,0 +1,929 @@
+.class final Lcom/android/server/wifi/ConfigUtils;
+.super Ljava/lang/Object;
+.source "ConfigUtils.java"
+
+
+# static fields
+.field private static final SUPPLICANT_CONFIG_FILE:Ljava/lang/String; = "/data/misc/wifi/wpa_supplicant.conf"
+
+.field private static final TAG:Ljava/lang/String; = "ConfigUtils"
+
+.field private static final WIFI_CONFIG_HEADER:Ljava/lang/String; = "network={"
+
+
+# direct methods
+.method constructor <init>()V
+    .locals 0
+
+    .prologue
+    .line 19
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+.method private static encodeGbkSSID(Ljava/lang/String;)Ljava/lang/String;
+    .locals 5
+    .param p0, "ssid"    # Ljava/lang/String;
+
+    .prologue
+    .line 125
+    const-string/jumbo v1, ""
+
+    .line 127
+    .local v1, "hex":Ljava/lang/String;
+    :try_start_0
+    const-string/jumbo v2, "GBK"
+
+    invoke-virtual {p0, v2}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/android/server/wifi/Utils;->toHex([B)Ljava/lang/String;
+    :try_end_0
+    .catch Ljava/io/UnsupportedEncodingException; {:try_start_0 .. :try_end_0} :catch_0
+
+    move-result-object v1
+
+    .line 131
+    :goto_0
+    return-object v1
+
+    .line 128
+    :catch_0
+    move-exception v0
+
+    .line 129
+    .local v0, "e":Ljava/io/UnsupportedEncodingException;
+    const-string/jumbo v2, "ConfigUtils"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string/jumbo v4, "encodeGbk to hex failed when read wifi data from wpa_supplicant"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_0
+.end method
+
+.method private static encodeUtf8SSID(Ljava/lang/String;)Ljava/lang/String;
+    .locals 5
+    .param p0, "ssid"    # Ljava/lang/String;
+
+    .prologue
+    .line 115
+    const-string/jumbo v1, ""
+
+    .line 117
+    .local v1, "hex":Ljava/lang/String;
+    :try_start_0
+    const-string/jumbo v2, "UTF-8"
+
+    invoke-virtual {p0, v2}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/android/server/wifi/Utils;->toHex([B)Ljava/lang/String;
+    :try_end_0
+    .catch Ljava/io/UnsupportedEncodingException; {:try_start_0 .. :try_end_0} :catch_0
+
+    move-result-object v1
+
+    .line 121
+    :goto_0
+    return-object v1
+
+    .line 118
+    :catch_0
+    move-exception v0
+
+    .line 119
+    .local v0, "e":Ljava/io/UnsupportedEncodingException;
+    const-string/jumbo v2, "ConfigUtils"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string/jumbo v4, "encodeUtf8 to hex failed when read wifi data from wpa_supplicant"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_0
+.end method
+
+.method public static getWifiConfigStringWithPassword(Landroid/net/wifi/WifiConfiguration;)Ljava/lang/String;
+    .locals 3
+    .param p0, "config"    # Landroid/net/wifi/WifiConfiguration;
+
+    .prologue
+    .line 26
+    iget-object v0, p0, Landroid/net/wifi/WifiConfiguration;->SSID:Ljava/lang/String;
+
+    .line 27
+    iget-object v1, p0, Landroid/net/wifi/WifiConfiguration;->allowedKeyManagement:Ljava/util/BitSet;
+
+    sget-object v2, Landroid/net/wifi/WifiConfiguration$KeyMgmt;->strings:[Ljava/lang/String;
+
+    invoke-static {v1, v2}, Lcom/android/server/wifi/ConfigUtils;->parseKeyMgmt(Ljava/util/BitSet;[Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 26
+    invoke-static {v0, v1}, Lcom/android/server/wifi/ConfigUtils;->readWifiConfigFromSupplicantFile(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method private static parseKeyMgmt(Ljava/util/BitSet;[Ljava/lang/String;)Ljava/lang/String;
+    .locals 5
+    .param p0, "set"    # Ljava/util/BitSet;
+    .param p1, "strings"    # [Ljava/lang/String;
+
+    .prologue
+    const/4 v3, 0x0
+
+    .line 96
+    new-instance v0, Ljava/lang/StringBuffer;
+
+    invoke-direct {v0}, Ljava/lang/StringBuffer;-><init>()V
+
+    .line 97
+    .local v0, "buf":Ljava/lang/StringBuffer;
+    const/4 v1, -0x1
+
+    .line 99
+    .local v1, "nextSetBit":I
+    array-length v2, p1
+
+    invoke-virtual {p0, v3, v2}, Ljava/util/BitSet;->get(II)Ljava/util/BitSet;
+
+    move-result-object p0
+
+    .line 101
+    :goto_0
+    add-int/lit8 v2, v1, 0x1
+
+    invoke-virtual {p0, v2}, Ljava/util/BitSet;->nextSetBit(I)I
+
+    move-result v1
+
+    const/4 v2, -0x1
+
+    if-eq v1, v2, :cond_0
+
+    .line 102
+    aget-object v2, p1, v1
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    move-result-object v2
+
+    const/16 v3, 0x20
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuffer;->append(C)Ljava/lang/StringBuffer;
+
+    goto :goto_0
+
+    .line 106
+    :cond_0
+    invoke-virtual {p0}, Ljava/util/BitSet;->cardinality()I
+
+    move-result v2
+
+    if-lez v2, :cond_1
+
+    .line 107
+    invoke-virtual {v0}, Ljava/lang/StringBuffer;->length()I
+
+    move-result v2
+
+    add-int/lit8 v2, v2, -0x1
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuffer;->setLength(I)V
+
+    .line 109
+    :cond_1
+    invoke-virtual {v0}, Ljava/lang/StringBuffer;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    const/16 v3, 0x5f
+
+    const/16 v4, 0x2d
+
+    invoke-virtual {v2, v3, v4}, Ljava/lang/String;->replace(CC)Ljava/lang/String;
+
+    move-result-object v2
+
+    return-object v2
+.end method
+
+.method private static readWifiConfigFromSupplicantFile(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    .locals 17
+    .param p0, "ssid"    # Ljava/lang/String;
+    .param p1, "keyMgmt"    # Ljava/lang/String;
+
+    .prologue
+    .line 31
+    const/4 v12, 0x0
+
+    .line 32
+    .local v12, "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    const/4 v6, 0x0
+
+    .line 35
+    .local v6, "reader":Ljava/io/BufferedReader;
+    :try_start_0
+    new-instance v7, Ljava/io/BufferedReader;
+
+    new-instance v14, Ljava/io/FileReader;
+
+    const-string/jumbo v15, "/data/misc/wifi/wpa_supplicant.conf"
+
+    invoke-direct {v14, v15}, Ljava/io/FileReader;-><init>(Ljava/lang/String;)V
+
+    invoke-direct {v7, v14}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
+    :try_end_0
+    .catch Ljava/io/FileNotFoundException; {:try_start_0 .. :try_end_0} :catch_3
+    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_1
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 36
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .local v7, "reader":Ljava/io/BufferedReader;
+    const/4 v3, 0x0
+
+    .line 38
+    .local v3, "found":Z
+    :try_start_1
+    invoke-static/range {p0 .. p0}, Lcom/android/server/wifi/Utils;->removeDoubleQuotes(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v9
+
+    .line 39
+    .local v9, "ssidNoQuotes":Ljava/lang/String;
+    new-instance v14, Ljava/lang/StringBuilder;
+
+    invoke-direct {v14}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string/jumbo v15, "\""
+
+    invoke-virtual {v14, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v14
+
+    invoke-virtual {v14, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v14
+
+    const-string/jumbo v15, "\""
+
+    invoke-virtual {v14, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v14
+
+    invoke-virtual {v14}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v10
+
+    .line 41
+    .local v10, "ssidWithQuotes":Ljava/lang/String;
+    invoke-virtual {v7}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
+    :try_end_1
+    .catch Ljava/io/FileNotFoundException; {:try_start_1 .. :try_end_1} :catch_6
+    .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_8
+    .catchall {:try_start_1 .. :try_end_1} :catchall_1
+
+    move-result-object v4
+
+    .local v4, "line":Ljava/lang/String;
+    move-object v13, v12
+
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .local v13, "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :goto_0
+    if-eqz v4, :cond_e
+
+    .line 42
+    :try_start_2
+    const-string/jumbo v14, "[ \\t]*network=\\{"
+
+    invoke-virtual {v4, v14}, Ljava/lang/String;->matches(Ljava/lang/String;)Z
+
+    move-result v14
+
+    if-eqz v14, :cond_0
+
+    .line 43
+    const/4 v3, 0x1
+
+    .line 45
+    :cond_0
+    if-eqz v3, :cond_9
+
+    .line 46
+    invoke-virtual {v4}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v11
+
+    .line 47
+    .local v11, "trimmedLine":Ljava/lang/String;
+    const/4 v5, 0x0
+
+    .line 48
+    .local v5, "match":Z
+    const-string/jumbo v14, "ssid="
+
+    invoke-virtual {v11, v14}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v14
+
+    if-eqz v14, :cond_8
+
+    .line 49
+    const/4 v14, 0x5
+
+    invoke-virtual {v11, v14}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object v8
+
+    .line 50
+    .local v8, "ssidHex":Ljava/lang/String;
+    invoke-virtual {v8}, Ljava/lang/String;->length()I
+
+    move-result v14
+
+    const/4 v15, 0x1
+
+    if-le v14, v15, :cond_5
+
+    const/4 v14, 0x0
+
+    invoke-virtual {v8, v14}, Ljava/lang/String;->charAt(I)C
+
+    move-result v14
+
+    const/16 v15, 0x22
+
+    if-ne v14, v15, :cond_5
+
+    .line 51
+    invoke-virtual {v8}, Ljava/lang/String;->length()I
+
+    move-result v14
+
+    add-int/lit8 v14, v14, -0x1
+
+    invoke-virtual {v8, v14}, Ljava/lang/String;->charAt(I)C
+
+    move-result v14
+
+    const/16 v15, 0x22
+
+    if-ne v14, v15, :cond_5
+
+    .line 52
+    invoke-virtual {v10, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v14
+
+    if-eqz v14, :cond_1
+
+    .line 53
+    const/4 v5, 0x1
+
+    .line 61
+    :cond_1
+    :goto_1
+    if-eqz v5, :cond_d
+
+    .line 62
+    new-instance v12, Ljava/lang/StringBuilder;
+
+    const-string/jumbo v14, "network={\n"
+
+    invoke-direct {v12, v14}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    :try_end_2
+    .catch Ljava/io/FileNotFoundException; {:try_start_2 .. :try_end_2} :catch_7
+    .catch Ljava/io/IOException; {:try_start_2 .. :try_end_2} :catch_9
+    .catchall {:try_start_2 .. :try_end_2} :catchall_2
+
+    .line 63
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .local v12, "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :try_start_3
+    const-string/jumbo v14, "ssid="
+
+    invoke-virtual {v12, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v14
+
+    invoke-virtual {v14, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v14
+
+    const-string/jumbo v15, "\n"
+
+    invoke-virtual {v14, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 68
+    .end local v8    # "ssidHex":Ljava/lang/String;
+    :goto_2
+    const-string/jumbo v14, "key_mgmt="
+
+    invoke-virtual {v11, v14}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v14
+
+    if-eqz v14, :cond_2
+
+    if-eqz v12, :cond_2
+
+    .line 69
+    const/16 v14, 0x9
+
+    invoke-virtual {v11, v14}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object v14
+
+    move-object/from16 v0, p1
+
+    invoke-virtual {v14, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v14
+
+    if-nez v14, :cond_2
+
+    .line 70
+    const/4 v12, 0x0
+
+    .line 73
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :cond_2
+    const-string/jumbo v14, "[ \\t]*\\}"
+
+    invoke-virtual {v4, v14}, Ljava/lang/String;->matches(Ljava/lang/String;)Z
+    :try_end_3
+    .catch Ljava/io/FileNotFoundException; {:try_start_3 .. :try_end_3} :catch_6
+    .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_8
+    .catchall {:try_start_3 .. :try_end_3} :catchall_1
+
+    move-result v14
+
+    if-eqz v14, :cond_a
+
+    if-eqz v12, :cond_a
+
+    .line 84
+    .end local v5    # "match":Z
+    .end local v11    # "trimmedLine":Ljava/lang/String;
+    :goto_3
+    if-eqz v7, :cond_3
+
+    .line 85
+    :try_start_4
+    invoke-virtual {v7}, Ljava/io/BufferedReader;->close()V
+    :try_end_4
+    .catch Ljava/io/IOException; {:try_start_4 .. :try_end_4} :catch_0
+
+    :cond_3
+    :goto_4
+    move-object v6, v7
+
+    .line 92
+    .end local v3    # "found":Z
+    .end local v4    # "line":Ljava/lang/String;
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .end local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .end local v10    # "ssidWithQuotes":Ljava/lang/String;
+    :cond_4
+    :goto_5
+    if-eqz v12, :cond_c
+
+    invoke-virtual {v12}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v14
+
+    :goto_6
+    return-object v14
+
+    .line 56
+    .restart local v3    # "found":Z
+    .restart local v4    # "line":Ljava/lang/String;
+    .restart local v5    # "match":Z
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v8    # "ssidHex":Ljava/lang/String;
+    .restart local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .restart local v10    # "ssidWithQuotes":Ljava/lang/String;
+    .restart local v11    # "trimmedLine":Ljava/lang/String;
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :cond_5
+    :try_start_5
+    invoke-static {v8}, Lcom/android/server/wifi/Utils;->isUTF8(Ljava/lang/String;)Z
+
+    move-result v14
+
+    if-eqz v14, :cond_6
+
+    invoke-static {v9}, Lcom/android/server/wifi/ConfigUtils;->encodeUtf8SSID(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v14
+
+    invoke-virtual {v14, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v14
+
+    if-nez v14, :cond_7
+
+    .line 57
+    :cond_6
+    invoke-static {v8}, Lcom/android/server/wifi/Utils;->isGBK(Ljava/lang/String;)Z
+
+    move-result v14
+
+    if-eqz v14, :cond_1
+
+    invoke-static {v9}, Lcom/android/server/wifi/ConfigUtils;->encodeGbkSSID(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v14
+
+    invoke-virtual {v14, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v14
+
+    .line 56
+    if-eqz v14, :cond_1
+
+    .line 58
+    :cond_7
+    const/4 v5, 0x1
+
+    goto :goto_1
+
+    .line 65
+    .end local v8    # "ssidHex":Ljava/lang/String;
+    :cond_8
+    if-eqz v13, :cond_d
+
+    .line 66
+    invoke-virtual {v13, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v14
+
+    const-string/jumbo v15, "\n"
+
+    invoke-virtual {v14, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_5
+    .catch Ljava/io/FileNotFoundException; {:try_start_5 .. :try_end_5} :catch_7
+    .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_9
+    .catchall {:try_start_5 .. :try_end_5} :catchall_2
+
+    move-object v12, v13
+
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    goto :goto_2
+
+    .end local v5    # "match":Z
+    .end local v11    # "trimmedLine":Ljava/lang/String;
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :cond_9
+    move-object v12, v13
+
+    .line 41
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :cond_a
+    :try_start_6
+    invoke-virtual {v7}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
+    :try_end_6
+    .catch Ljava/io/FileNotFoundException; {:try_start_6 .. :try_end_6} :catch_6
+    .catch Ljava/io/IOException; {:try_start_6 .. :try_end_6} :catch_8
+    .catchall {:try_start_6 .. :try_end_6} :catchall_1
+
+    move-result-object v4
+
+    move-object v13, v12
+
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    goto/16 :goto_0
+
+    .line 87
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :catch_0
+    move-exception v2
+
+    .local v2, "e":Ljava/io/IOException;
+    goto :goto_4
+
+    .line 80
+    .end local v2    # "e":Ljava/io/IOException;
+    .end local v3    # "found":Z
+    .end local v4    # "line":Ljava/lang/String;
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .end local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .end local v10    # "ssidWithQuotes":Ljava/lang/String;
+    .restart local v6    # "reader":Ljava/io/BufferedReader;
+    .local v12, "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :catch_1
+    move-exception v2
+
+    .line 81
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v2    # "e":Ljava/io/IOException;
+    :goto_7
+    :try_start_7
+    const-string/jumbo v14, "ConfigUtils"
+
+    new-instance v15, Ljava/lang/StringBuilder;
+
+    invoke-direct {v15}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string/jumbo v16, "Could not read /data/misc/wifi/wpa_supplicant.conf, "
+
+    invoke-virtual/range {v15 .. v16}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v15
+
+    invoke-virtual {v15, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v15
+
+    invoke-virtual {v15}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v15
+
+    invoke-static {v14, v15}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_7
+    .catchall {:try_start_7 .. :try_end_7} :catchall_0
+
+    .line 84
+    if-eqz v6, :cond_4
+
+    .line 85
+    :try_start_8
+    invoke-virtual {v6}, Ljava/io/BufferedReader;->close()V
+    :try_end_8
+    .catch Ljava/io/IOException; {:try_start_8 .. :try_end_8} :catch_2
+
+    goto :goto_5
+
+    .line 87
+    :catch_2
+    move-exception v2
+
+    goto :goto_5
+
+    .line 78
+    .end local v2    # "e":Ljava/io/IOException;
+    .restart local v6    # "reader":Ljava/io/BufferedReader;
+    .restart local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :catch_3
+    move-exception v1
+
+    .line 79
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .local v1, "e":Ljava/io/FileNotFoundException;
+    :goto_8
+    :try_start_9
+    const-string/jumbo v14, "ConfigUtils"
+
+    new-instance v15, Ljava/lang/StringBuilder;
+
+    invoke-direct {v15}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string/jumbo v16, "Could not open /data/misc/wifi/wpa_supplicant.conf, "
+
+    invoke-virtual/range {v15 .. v16}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v15
+
+    invoke-virtual {v15, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v15
+
+    invoke-virtual {v15}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v15
+
+    invoke-static {v14, v15}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_9
+    .catchall {:try_start_9 .. :try_end_9} :catchall_0
+
+    .line 84
+    if-eqz v6, :cond_4
+
+    .line 85
+    :try_start_a
+    invoke-virtual {v6}, Ljava/io/BufferedReader;->close()V
+    :try_end_a
+    .catch Ljava/io/IOException; {:try_start_a .. :try_end_a} :catch_4
+
+    goto/16 :goto_5
+
+    .line 87
+    :catch_4
+    move-exception v2
+
+    .restart local v2    # "e":Ljava/io/IOException;
+    goto/16 :goto_5
+
+    .line 82
+    .end local v1    # "e":Ljava/io/FileNotFoundException;
+    .end local v2    # "e":Ljava/io/IOException;
+    :catchall_0
+    move-exception v14
+
+    .line 84
+    :goto_9
+    if-eqz v6, :cond_b
+
+    .line 85
+    :try_start_b
+    invoke-virtual {v6}, Ljava/io/BufferedReader;->close()V
+    :try_end_b
+    .catch Ljava/io/IOException; {:try_start_b .. :try_end_b} :catch_5
+
+    .line 82
+    :cond_b
+    :goto_a
+    throw v14
+
+    .line 87
+    :catch_5
+    move-exception v2
+
+    .restart local v2    # "e":Ljava/io/IOException;
+    goto :goto_a
+
+    .line 92
+    .end local v2    # "e":Ljava/io/IOException;
+    :cond_c
+    const/4 v14, 0x0
+
+    goto/16 :goto_6
+
+    .line 82
+    .restart local v3    # "found":Z
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    :catchall_1
+    move-exception v14
+
+    move-object v6, v7
+
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .local v6, "reader":Ljava/io/BufferedReader;
+    goto :goto_9
+
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .restart local v4    # "line":Ljava/lang/String;
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .restart local v10    # "ssidWithQuotes":Ljava/lang/String;
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :catchall_2
+    move-exception v14
+
+    move-object v6, v7
+
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v6    # "reader":Ljava/io/BufferedReader;
+    move-object v12, v13
+
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .local v12, "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    goto :goto_9
+
+    .line 78
+    .end local v4    # "line":Ljava/lang/String;
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .end local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .end local v10    # "ssidWithQuotes":Ljava/lang/String;
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    :catch_6
+    move-exception v1
+
+    .restart local v1    # "e":Ljava/io/FileNotFoundException;
+    move-object v6, v7
+
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v6    # "reader":Ljava/io/BufferedReader;
+    goto :goto_8
+
+    .end local v1    # "e":Ljava/io/FileNotFoundException;
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .restart local v4    # "line":Ljava/lang/String;
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .restart local v10    # "ssidWithQuotes":Ljava/lang/String;
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :catch_7
+    move-exception v1
+
+    .restart local v1    # "e":Ljava/io/FileNotFoundException;
+    move-object v6, v7
+
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v6    # "reader":Ljava/io/BufferedReader;
+    move-object v12, v13
+
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    goto :goto_8
+
+    .line 80
+    .end local v1    # "e":Ljava/io/FileNotFoundException;
+    .end local v4    # "line":Ljava/lang/String;
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .end local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .end local v10    # "ssidWithQuotes":Ljava/lang/String;
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    :catch_8
+    move-exception v2
+
+    .restart local v2    # "e":Ljava/io/IOException;
+    move-object v6, v7
+
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v6    # "reader":Ljava/io/BufferedReader;
+    goto :goto_7
+
+    .end local v2    # "e":Ljava/io/IOException;
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .restart local v4    # "line":Ljava/lang/String;
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v9    # "ssidNoQuotes":Ljava/lang/String;
+    .restart local v10    # "ssidWithQuotes":Ljava/lang/String;
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :catch_9
+    move-exception v2
+
+    .restart local v2    # "e":Ljava/io/IOException;
+    move-object v6, v7
+
+    .end local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v6    # "reader":Ljava/io/BufferedReader;
+    move-object v12, v13
+
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    goto :goto_7
+
+    .end local v2    # "e":Ljava/io/IOException;
+    .end local v6    # "reader":Ljava/io/BufferedReader;
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v5    # "match":Z
+    .restart local v7    # "reader":Ljava/io/BufferedReader;
+    .restart local v11    # "trimmedLine":Ljava/lang/String;
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :cond_d
+    move-object v12, v13
+
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    goto/16 :goto_2
+
+    .end local v5    # "match":Z
+    .end local v11    # "trimmedLine":Ljava/lang/String;
+    .end local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    :cond_e
+    move-object v12, v13
+
+    .end local v13    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    .restart local v12    # "wifiConfigBuilder":Ljava/lang/StringBuilder;
+    goto/16 :goto_3
+.end method

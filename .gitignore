@@ -1,0 +1,13 @@
+/board/*
+/autopatch/*
+/out/*
+/other/*
+/history_package/*
+/vendor/system/app/WebViewGoogle/*
+/vendor/system/app/HybridPlatform/*
+/vendor/system/app/Mipay/*
+/overlay/system/app/NBrowser/*
+/overlay/system/app/MarketProvider/*
+/overlay/system/app/WeatherService/*
+/overlay/firmware-update/*
+releasetools.pyc
