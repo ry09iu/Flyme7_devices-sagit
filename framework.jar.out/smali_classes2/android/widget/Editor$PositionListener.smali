@@ -155,6 +155,8 @@
 
     iput v0, p0, Landroid/widget/Editor$PositionListener;->mPositionY:I
 
+    invoke-direct/range {p0 .. p0}, Landroid/widget/Editor$PositionListener;->flymeUpdatemScrollHasChanged()V
+
     return-void
 
     :cond_1

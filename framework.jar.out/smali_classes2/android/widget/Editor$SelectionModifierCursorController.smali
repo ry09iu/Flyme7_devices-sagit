@@ -34,6 +34,18 @@
 
 .field private mDownPositionX:F
 
+.field private mFlymeCanDragSelection:Z
+
+.field private mFlymeDownMotionX:I
+
+.field private mFlymeDownMotionY:I
+
+.field private mFlymeDragSlop:I
+
+.field private mIsFlymeDragSelectionToTop:Z
+
+.field private mIsFlymeMoved:Z
+
 .field private mDownPositionY:F
 
 .field private mDragAcceleratorMode:I
@@ -692,6 +704,9 @@
     .line 5482
     :cond_1
     :goto_1
+
+    invoke-direct/range {p0 .. p1}, Landroid/widget/Editor$SelectionModifierCursorController;->flymeTouchEvent(Landroid/view/MotionEvent;)V
+
     return-void
 
     .line 5489

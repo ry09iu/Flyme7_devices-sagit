@@ -1080,6 +1080,9 @@
 
     .line 1960
     :cond_14
+
+    invoke-static {p0, p1, v0}, Landroid/content/res/FlymeConfigurationInjector;->generateDelta(Landroid/content/res/Configuration;Landroid/content/res/Configuration;Landroid/content/res/Configuration;)V
+
     return-object v0
 .end method
 
@@ -1302,33 +1305,34 @@
 .end method
 
 .method public static needNewResources(II)Z
-    .locals 1
+    .locals 2
     .param p0, "configChanges"    # I
     .param p1, "interestingChanges"    # I
 
     .prologue
-    .line 1234
-    const/high16 v0, 0x40000000    # 2.0f
+    const/4 v0, 0x0
 
-    or-int/2addr v0, p1
+    .line 1214
+    const/high16 v1, 0x40000000    # 2.0f
 
-    and-int/2addr v0, p0
+    or-int/2addr v1, p1
 
-    if-nez v0, :cond_0
+    or-int/lit16 v1, v1, 0x4000
 
-    .line 1235
-    invoke-static {p0}, Landroid/content/res/MiuiConfiguration;->needNewResources(I)Z
+    const v0, 0x8000
 
-    move-result v0
+    or-int/2addr v1, v0
 
-    .line 1234
-    :goto_0
-    return v0
+    const/4 v0, 0x0
 
-    :cond_0
+    and-int/2addr v1, p0
+
+    if-eqz v1, :cond_0
+
     const/4 v0, 0x1
 
-    goto :goto_0
+    :cond_0
+    return v0
 .end method
 
 .method public static readXmlAttrs(Lorg/xmlpull/v1/XmlPullParser;Landroid/content/res/Configuration;)V
@@ -3187,6 +3191,10 @@
 
     .line 1437
     :cond_18
+    invoke-static {p0, p1, v4}, Landroid/content/res/FlymeConfigurationInjector;->compareTo(Landroid/content/res/Configuration;Landroid/content/res/Configuration;I)I
+
+    move-result v4
+
     return v4
 .end method
 
@@ -3556,6 +3564,10 @@
 
     or-int/2addr v0, v2
 
+    invoke-static {p0, p1, v0}, Landroid/content/res/FlymeConfigurationInjector;->diff(Landroid/content/res/Configuration;Landroid/content/res/Configuration;I)I
+
+    move-result v0
+
     return v0
 
     .end local v1    # "deltaScreenLayoutDir":I
@@ -3799,6 +3811,10 @@
     move-result v2
 
     add-int v0, v1, v2
+
+    invoke-static {p0, v0}, Landroid/content/res/FlymeConfigurationInjector;->hashCode(Landroid/content/res/Configuration;I)I
+
+    move-result v0
 
     return v0
 .end method
@@ -4127,6 +4143,8 @@
 
     invoke-virtual {v3, p1}, Landroid/content/res/MiuiConfiguration;->readFromParcel(Landroid/os/Parcel;)V
 
+    invoke-static/range {p0 .. p1}, Landroid/content/res/FlymeConfigurationInjector;->readFromParcel(Landroid/content/res/Configuration;Landroid/os/Parcel;)V
+
     return-void
 
     :cond_1
@@ -4350,6 +4368,8 @@
 
     invoke-virtual {v0, v1}, Landroid/content/res/MiuiConfiguration;->setTo(Landroid/content/res/MiuiConfiguration;)V
 
+    invoke-static/range {p0 .. p1}, Landroid/content/res/FlymeConfigurationInjector;->initFlymeExtraFields(Landroid/content/res/Configuration;Landroid/content/res/Configuration;)V
+
     return-void
 
     :cond_0
@@ -4427,6 +4447,8 @@
     iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
 
     invoke-virtual {v0}, Landroid/content/res/MiuiConfiguration;->setToDefaults()V
+
+    invoke-static/range {p0 .. p0}, Landroid/content/res/FlymeConfigurationInjector;->initFlymeExtraFields(Landroid/content/res/Configuration;)V
 
     return-void
 .end method
@@ -5900,6 +5922,10 @@
 
     or-int/2addr v0, v2
 
+    invoke-static {p0, p1, v0}, Landroid/content/res/FlymeConfigurationInjector;->updateFrom(Landroid/content/res/Configuration;Landroid/content/res/Configuration;I)I
+
+    move-result v0
+
     return v0
 
     .end local v1    # "deltaScreenLayoutDir":I
@@ -6094,6 +6120,8 @@
     iget-object v3, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
 
     invoke-virtual {v3, p1, p2}, Landroid/content/res/MiuiConfiguration;->writeToParcel(Landroid/os/Parcel;I)V
+
+    invoke-static/range {p0 .. p2}, Landroid/content/res/FlymeConfigurationInjector;->writeToParcel(Landroid/content/res/Configuration;Landroid/os/Parcel;I)V
 
     return-void
 

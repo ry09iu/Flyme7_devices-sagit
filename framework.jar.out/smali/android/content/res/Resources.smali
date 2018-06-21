@@ -267,6 +267,8 @@
     .restart local v0    # "ret":Landroid/content/res/Resources;
     sput-object v0, Landroid/content/res/Resources;->mSystem:Landroid/content/res/Resources;
 
+    invoke-static {}, Landroid/content/res/FlymeResourcesInjector;->setSystemFlymeThemeResource()V
+
     const/4 v1, 0x0
 
     invoke-static {v0, v1}, Landroid/miui/ResourcesManager;->initMiuiResource(Landroid/content/res/Resources;Ljava/lang/String;)V

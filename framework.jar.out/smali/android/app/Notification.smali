@@ -604,6 +604,8 @@
 
     iput-object v0, p0, Landroid/app/Notification;->extras:Landroid/os/Bundle;
 
+    invoke-static/range {p0 .. p0}, Landroid/app/FlymeNotificationInjector;->initFlymeExtFields(Landroid/app/Notification;)V
+
     new-instance v0, Landroid/app/MiuiNotification;
 
     invoke-direct {v0}, Landroid/app/MiuiNotification;-><init>()V
@@ -1326,6 +1328,8 @@
 
     iput v1, p0, Landroid/app/Notification;->color:I
 
+    invoke-static/range {p0 .. p1}, Landroid/app/FlymeNotificationInjector;->readFromParcelFlyme(Landroid/app/Notification;Landroid/os/Parcel;)V
+
     iget-object v1, p0, Landroid/app/Notification;->extraNotification:Landroid/app/MiuiNotification;
 
     invoke-virtual {v1, p1}, Landroid/app/MiuiNotification;->readFromParcel(Landroid/os/Parcel;)V
@@ -1952,6 +1956,8 @@
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
+    invoke-static/range {p0 .. p2}, Landroid/app/FlymeNotificationInjector;->writeToParcelFlyme(Landroid/app/Notification;Landroid/os/Parcel;I)V
+
     iget-object v0, p0, Landroid/app/Notification;->extraNotification:Landroid/app/MiuiNotification;
 
     invoke-virtual {v0, p1, p2}, Landroid/app/MiuiNotification;->writeToParcel(Landroid/os/Parcel;I)V
@@ -2499,6 +2505,8 @@
     invoke-virtual {p1}, Landroid/app/Notification;->lightenPayload()V
 
     :cond_d
+    invoke-static/range {p0 .. p1}, Landroid/app/FlymeNotificationInjector;->cloneIntoFlyme(Landroid/app/Notification;Landroid/app/Notification;)V
+
     iget-object v5, p1, Landroid/app/Notification;->extraNotification:Landroid/app/MiuiNotification;
 
     iget-object v6, p0, Landroid/app/Notification;->extraNotification:Landroid/app/MiuiNotification;

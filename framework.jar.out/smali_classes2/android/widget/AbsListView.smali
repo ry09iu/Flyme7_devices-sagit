@@ -77,6 +77,10 @@
 
 .field static final LAYOUT_FORCE_BOTTOM:I = 0x3
 
+.field public static final CHOICE_MODE_MULTIPLE_MODAL_MZ:I = 0x4
+
+.field public static final CHOICE_MODE_MULTIPLE_MODAL_MZ_ALWAYS:I = 0x5
+
 .field static final LAYOUT_FORCE_TOP:I = 0x1
 
 .field static final LAYOUT_MOVE_SELECTION:I = 0x6
@@ -11950,6 +11954,9 @@
     iput-boolean v5, p0, Landroid/widget/AbsListView;->mInLayout:Z
 
     :cond_2
+
+    invoke-static/range {p0 .. p0}, Landroid/widget/AbsListView$FlymeInjector;->mzOnLayout2(Landroid/widget/AbsListView;)V
+
     return-void
 .end method
 

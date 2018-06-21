@@ -846,6 +846,8 @@
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
+    invoke-static/range {p0 .. p0}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;)V
+
     return-void
 .end method
 
@@ -872,6 +874,8 @@
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
+
+    invoke-static/range {p0 .. p0}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;)V
 
     new-instance v0, Landroid/content/ComponentName;
 
@@ -1022,6 +1026,8 @@
 
     iput v0, p0, Landroid/content/Intent;->mMiuiFlags:I
 
+    invoke-static/range {p0 .. p1}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;Landroid/content/Intent;)V
+
     return-void
 .end method
 
@@ -1096,6 +1102,8 @@
 
     iput v0, p0, Landroid/content/Intent;->mMiuiFlags:I
 
+    invoke-static/range {p0 .. p0}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;)V
+
     return-void
 .end method
 
@@ -1113,6 +1121,8 @@
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
+
+    invoke-static/range {p0 .. p0}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;)V
 
     invoke-virtual {p0, p1}, Landroid/content/Intent;->readFromParcel(Landroid/os/Parcel;)V
 
@@ -1134,6 +1144,8 @@
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
+    invoke-static/range {p0 .. p0}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;)V
+
     invoke-virtual {p0, p1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
     return-void
@@ -1154,6 +1166,8 @@
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
+
+    invoke-static/range {p0 .. p0}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;)V
 
     invoke-virtual {p0, p1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
@@ -1189,6 +1203,8 @@
     const-wide/16 v0, -0x1
 
     iput-wide v0, p0, Landroid/content/Intent;->mLaunchStartTime:J
+
+    invoke-static/range {p0 .. p0}, Landroid/content/FlymeIntentInjector;->createFlymeIntent(Landroid/content/Intent;)V
 
     invoke-virtual {p0, p1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
@@ -12301,6 +12317,8 @@
 
     iput-wide v2, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
+    invoke-static/range {p0 .. p1}, Landroid/content/FlymeIntentInjector;->readIntentExt(Landroid/content/Intent;Landroid/os/Parcel;)V
+
     return-void
 .end method
 
@@ -14490,6 +14508,8 @@
     iget-wide v2, p0, Landroid/content/Intent;->mLaunchStartTime:J
 
     invoke-virtual {p1, v2, v3}, Landroid/os/Parcel;->writeLong(J)V
+
+    invoke-static/range {p0 .. p1}, Landroid/content/FlymeIntentInjector;->writeIntentExt(Landroid/content/Intent;Landroid/os/Parcel;)V
 
     return-void
 

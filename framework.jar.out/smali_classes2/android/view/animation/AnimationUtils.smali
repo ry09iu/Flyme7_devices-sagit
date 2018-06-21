@@ -230,6 +230,7 @@
 
     .line 196
     :goto_1
+    :goto_flyme_0
     if-eqz p2, :cond_2
 
     .line 197
@@ -330,6 +331,22 @@
     .end local v1    # "anim":Landroid/view/animation/Animation;
     .restart local v2    # "anim":Landroid/view/animation/Animation;
     :cond_7
+    const-string/jumbo v8, "combo"
+
+    invoke-virtual {v5, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v8
+
+    if-eqz v8, :cond_flyme_0
+
+    new-instance v1, Landroid/view/animation/ComboAnimation;
+
+    invoke-direct {v1, p0, p3}, Landroid/view/animation/ComboAnimation;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
+
+    goto :goto_flyme_0
+
+    :cond_flyme_0
+
     new-instance v8, Ljava/lang/RuntimeException;
 
     new-instance v9, Ljava/lang/StringBuilder;
@@ -443,6 +460,8 @@
     .local v5, "parserContent":Ljava/lang/String;
     :cond_0
     :goto_0
+    :goto_flyme_0
+
     :try_start_0
     invoke-interface {p2}, Lorg/xmlpull/v1/XmlPullParser;->next()I
 
@@ -725,6 +744,22 @@
     .line 489
     .end local v3    # "interpolator":Landroid/view/animation/BaseInterpolator;
     :cond_b
+    const-string/jumbo v7, "valueArrayInterpolator"
+
+    invoke-virtual {v4, v7}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v7
+
+    if-eqz v7, :cond_flyme_0
+
+    new-instance v3, Landroid/view/animation/ValueArrayInterpolator;
+
+    invoke-direct {v3, p0, p1, v0}, Landroid/view/animation/ValueArrayInterpolator;-><init>(Landroid/content/res/Resources;Landroid/content/res/Resources$Theme;Landroid/util/AttributeSet;)V
+
+    goto/16 :goto_flyme_0
+
+    :cond_flyme_0
+
     new-instance v7, Ljava/lang/RuntimeException;
 
     new-instance v8, Ljava/lang/StringBuilder;

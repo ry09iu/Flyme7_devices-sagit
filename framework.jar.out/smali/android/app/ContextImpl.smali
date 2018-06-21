@@ -355,14 +355,10 @@
 
     move-result-object v14
 
+    :goto_flyme_0
+    invoke-direct {p0, v14}, Landroid/app/ContextImpl;->setFlymeThemeResource(Landroid/content/res/Resources;)V
+
     :goto_4
-    iget-object v2, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
-
-    iget-object v2, v2, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
-
-    invoke-static {v14, v2}, Landroid/miui/ResourcesManager;->initMiuiResource(Landroid/content/res/Resources;Ljava/lang/String;)V
-
-    :cond_5
     iput-object v14, p0, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
 
     const/4 v2, -0x1

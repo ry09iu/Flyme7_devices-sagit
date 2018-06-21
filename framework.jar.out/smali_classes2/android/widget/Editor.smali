@@ -6598,6 +6598,12 @@
 
     if-lez v7, :cond_4
 
+    invoke-static/range {p0 .. p0}, Landroid/widget/Editor$FlymeInjector;->isFlymeCursorVisible(Landroid/widget/Editor;)Z
+
+    move-result v7
+
+    if-eqz v7, :cond_flyme_0
+
     move-object/from16 v0, p0
 
     move-object/from16 v1, p1
@@ -6605,6 +6611,8 @@
     move/from16 v2, p5
 
     invoke-direct {v0, v1, v2}, Landroid/widget/Editor;->drawCursor(Landroid/graphics/Canvas;I)V
+
+    :cond_flyme_0
 
     const/16 p3, 0x0
 
@@ -8292,6 +8300,8 @@
 
     invoke-direct {p0}, Landroid/widget/Editor;->hideCursorControllers()V
 
+    invoke-static/range {p0 .. p0}, Landroid/widget/Editor$FlymeInjector;->stopDragSelectionMode(Landroid/widget/Editor;)V
+
     return-void
 .end method
 
@@ -8562,6 +8572,8 @@
 
     :cond_0
     invoke-virtual {p0}, Landroid/widget/Editor;->stopSelectionActionMode()V
+
+    invoke-static/range {p0 .. p0}, Landroid/widget/Editor$FlymeInjector;->hideSelectionModifierCursorController(Landroid/widget/Editor;)V
 
     return-void
 .end method

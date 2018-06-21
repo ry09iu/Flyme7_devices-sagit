@@ -1505,7 +1505,7 @@
 
     move/from16 v11, p3
 
-    invoke-virtual/range {v6 .. v11}, Landroid/content/res/ResourcesImpl;->createFromResourceStream(Landroid/content/res/Resources;Landroid/util/TypedValue;Ljava/io/InputStream;Ljava/lang/String;I)Landroid/graphics/drawable/Drawable;
+    invoke-static/range {p1 .. p3}, Landroid/content/res/FlymeResourcesImplInjector;->createFromResourceStream(Landroid/content/res/Resources;Landroid/util/TypedValue;I)Landroid/graphics/drawable/Drawable;
 
     move-result-object v12
 

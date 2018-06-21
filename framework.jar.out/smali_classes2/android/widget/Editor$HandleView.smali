@@ -1115,6 +1115,8 @@
 
     iput-boolean v9, p0, Landroid/widget/Editor$HandleView;->mIsDragging:Z
 
+    invoke-direct/range {p0 .. p0}, Landroid/widget/Editor$HandleView;->flymeHideOptionWrapper()V
+
     const/4 v7, -0x1
 
     iput v7, p0, Landroid/widget/Editor$HandleView;->mPreviousLineTouched:I
@@ -1132,6 +1134,9 @@
     move-result v6
 
     .local v6, "rawY":F
+
+    invoke-direct/range {p0 .. p0}, Landroid/widget/Editor$HandleView;->flymeHideOptionWrapper()V
+
     iget v7, p0, Landroid/widget/Editor$HandleView;->mTouchToWindowOffsetY:F
 
     iget v8, p0, Landroid/widget/Editor$HandleView;->mLastParentY:I
@@ -1271,6 +1276,8 @@
 
     iput-boolean v7, p0, Landroid/widget/Editor$HandleView;->mIsDragging:Z
 
+    invoke-direct/range {p0 .. p0}, Landroid/widget/Editor$HandleView;->flymeShowOptionWrapper()V
+
     goto/16 :goto_0
 
     .line 4653
@@ -1331,6 +1338,16 @@
     if-eqz p2, :cond_4
 
     :cond_1
+
+    invoke-direct/range {p0 .. p1}, Landroid/widget/Editor$HandleView;->flymePositionAtCursorOffset(I)Z
+
+    move-result v6
+
+    if-eqz v6, :cond_flyme_0
+
+    return-void
+    :cond_flyme_0
+
     if-eqz v3, :cond_2
 
     invoke-virtual {p0, p1}, Landroid/widget/Editor$HandleView;->updateSelection(I)V
@@ -1641,6 +1658,8 @@
     :goto_0
     iput-object v2, p0, Landroid/widget/Editor$HandleView;->mDrawable:Landroid/graphics/drawable/Drawable;
 
+    invoke-virtual/range {p0 .. p0}, Landroid/widget/Editor$HandleView;->postInvalidate()V
+
     iget-object v2, p0, Landroid/widget/Editor$HandleView;->mDrawable:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {p0, v2, v0}, Landroid/widget/Editor$HandleView;->getHotspotX(Landroid/graphics/drawable/Drawable;Z)I
@@ -1781,6 +1800,8 @@
     iget-object v2, p0, Landroid/widget/Editor$HandleView;->mContainer:Landroid/widget/Editor$AnimatePopupWindow;
 
     invoke-virtual {v2, v0, v1, v4, v4}, Landroid/widget/Editor$AnimatePopupWindow;->update(IIII)V
+
+    invoke-direct/range {p0 .. p0}, Landroid/widget/Editor$HandleView;->flymeSendShowMessage()V
 
     .end local v0    # "positionX":I
     .end local v1    # "positionY":I

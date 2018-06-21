@@ -902,6 +902,8 @@
 
     invoke-static {}, Landroid/app/ContextImplInjector;->registerMiuiServices()V
 
+    invoke-static {}, Landroid/app/SystemServiceRegistry;->registerFlymeExtraManager()V
+
     return-void
 .end method
 
