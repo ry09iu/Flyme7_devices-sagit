@@ -504,6 +504,8 @@
 /sys/power/wake_unlock	u:object_r:sysfs_wake_lock:s0
 /sys/kernel/uevent_helper	u:object_r:usermodehelper:s0
 /sys/kernel/debug/tracing/trace_marker	u:object_r:debugfs_trace_marker:s0
+/dev/socket/flymed	u:object_r:flymed_socket:s0
+/system/bin/flymed	u:object_r:flymed_exec:s0
 /system/bin/resize2fs	u:object_r:resize_exec:s0
 /system/bin/make_f2fs	u:object_r:fsck_exec:s0
 /dev/bhi	u:object_r:bhi_device:s0
