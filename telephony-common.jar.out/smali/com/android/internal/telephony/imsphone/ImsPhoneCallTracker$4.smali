@@ -438,6 +438,8 @@
     .line 2346
     invoke-virtual {v5, v6, v7}, Lcom/android/internal/telephony/metrics/TelephonyMetrics;->writeOnImsCapabilities(I[Z)V
 
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/telephony/imsphone/ImsPhoneCallTracker$4;->broadcastFlymeImsStatusChange()V
+
     .line 2286
     .end local v1    # "connection$iterator":Ljava/util/Iterator;
     .end local v2    # "i":I
