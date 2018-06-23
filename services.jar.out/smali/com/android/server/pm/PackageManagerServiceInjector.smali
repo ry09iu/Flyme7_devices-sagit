@@ -3479,6 +3479,8 @@
 
     const/4 v5, 0x1
 
+    return v5
+
     .line 974
     if-nez p1, :cond_0
 
