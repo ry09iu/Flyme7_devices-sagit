@@ -1719,8 +1719,6 @@
 
     .prologue
     .line 517
-    return-void
-
     new-instance v0, Lcom/miui/server/SecurityManagerService$1;
 
     invoke-direct {v0, p0, p1}, Lcom/miui/server/SecurityManagerService$1;-><init>(Lcom/miui/server/SecurityManagerService;Z)V

@@ -4486,7 +4486,7 @@
 
     move-object/from16 v0, p0
 
-    invoke-static {v0, v4}, Lcom/android/server/pm/PackageManagerServiceInjector;->performPreinstallApp(Lcom/android/server/pm/PackageManagerService;Lcom/android/server/pm/Settings;)V
+    #invoke-static {v0, v4}, Lcom/android/server/pm/PackageManagerServiceInjector;->performPreinstallApp(Lcom/android/server/pm/PackageManagerService;Lcom/android/server/pm/Settings;)V
 
     .line 2509
     move-object/from16 v0, p0
@@ -77412,15 +77412,15 @@
 
     invoke-static {}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->isFlymePermissionGranted()Z
 
-    move-result v3
+    move-result v0
 
-    if-eqz v3, :cond_flyme_1
+    if-eqz v0, :cond_flyme_1
 
     invoke-static {}, Lcom/android/server/pm/PackageManagerService$FlymePackageManagerServiceInjector;->getFlymeEmptyPackageInfo()Landroid/content/pm/ParceledListSlice;
 
-    move-result-object v3
+    move-result-object v0
 
-    return-object v3
+    return-object v0
 
     :cond_flyme_0
     const/4 v11, 0x0

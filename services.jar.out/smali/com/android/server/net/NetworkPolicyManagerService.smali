@@ -1314,7 +1314,7 @@
 
     .prologue
     .line 3688
-    invoke-static/range {p1 .. p1}, Lcom/android/server/net/FlymeNetworkPolicyManagerServiceInjector;->buildFlymeNetworkOverLimitIntent(Landroid/net/NetworkTemplate;)Landroid/content/Intent;
+    invoke-static/range {p0 .. p0}, Lcom/android/server/net/FlymeNetworkPolicyManagerServiceInjector;->buildFlymeNetworkOverLimitIntent(Landroid/net/NetworkTemplate;)Landroid/content/Intent;
 
     move-result-object v0
 
@@ -1424,6 +1424,12 @@
 
     .prologue
     .line 3697
+    invoke-static/range {p0 .. p0}, Lcom/android/server/net/FlymeNetworkPolicyManagerServiceInjector;->buildFlymeViewDataUsageIntent(Landroid/net/NetworkTemplate;)Landroid/content/Intent;
+
+    move-result-object v0
+
+    return-object v0
+
     new-instance v0, Landroid/content/Intent;
 
     invoke-direct {v0}, Landroid/content/Intent;-><init>()V

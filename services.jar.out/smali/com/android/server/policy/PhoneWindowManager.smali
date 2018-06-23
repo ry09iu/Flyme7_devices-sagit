@@ -31867,7 +31867,7 @@
     .locals 1
 
     .prologue
-    invoke-direct {p0}, Lcom/android/server/policy/PhoneWindowManager;->isStatusBarKeyguard()Z
+    invoke-virtual {p0}, Lcom/android/server/policy/PhoneWindowManager;->isStatusBarKeyguard()Z
 
     move-result v0
 

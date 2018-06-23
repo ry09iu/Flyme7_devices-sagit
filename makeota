@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# makeota 5.1.5.13 (5.1.5.20)
+if [ "$1" = "" ];then
+	echo "Please enter last version name"
+   	else if [ ! -e ./history_package/flyme_*_"$1"R.zip ];then
+        	echo -e "\E[32m flyme_*_"$1"R.zip don't exists \E[0m"
+		echo -e "last pacakges don't exists"
+exit 0
+fi
+if [ "$2" = "" ];then
+	echo "Unzip build.prop"
+	cd history_package/
+	unzip -o -j flyme_*_"$1"R.zip "system/build.prop"
+	INSIDE_NUM=`cat build.prop | grep "ro.build.inside.id" | sed "s/ro.build.inside.id=7.1.1-//g"`
+	echo "INSIDE_NUM=$INSIDE_NUM"
+	rm build.prop && cd ../
+	make otadiff PRE=history_package/target_files_*_$INSIDE_NUM.zip
+	mv out/ota*.zip history_package/ota-package/
+fi
+fi
+
+
