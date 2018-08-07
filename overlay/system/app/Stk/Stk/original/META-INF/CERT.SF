@@ -1,0 +1,41 @@
+Signature-Version: 1.0
+X-Android-APK-Signed: 2
+SHA-256-Digest-Manifest: qYEdCkqQD/HljeZ80bXEvTCtWjkgtI7x9l4Eux6egMM=
+Created-By: 1.0 (Android SignApk)
+
+Name: res/layout/stk_menu_item.xml
+SHA-256-Digest: nyxxuK1zLczmQJjLuI9A/GgHNb8ZeJmkiko7u6lwKvQ=
+
+Name: res/layout/stk_input.xml
+SHA-256-Digest: gf/m/S2VB4DwdfGODiSJxNJTAXTt1WeznMcB40L49hc=
+
+Name: AndroidManifest.xml
+SHA-256-Digest: gnkuel6BHXC9oZD48OKNZxFyul/nkNmFHRbfVAJm9ZA=
+
+Name: res/drawable-xhdpi-v4/ic_launcher_sim_toolkit.png
+SHA-256-Digest: oGeLAlrVaO1lxrixuDBgz3VL615Y7HiYdwyu5Qe2x8M=
+
+Name: res/layout/stk_event_msg.xml
+SHA-256-Digest: EQLRoMZ6bGySa2dzYnffXpIQejButuhlhOt2g66sIOQ=
+
+Name: res/xml/stk_settings.xml
+SHA-256-Digest: w9TvlJMGG1Vr9Sy4r1dm6bGz+0up56S0ID8HQEVQO9E=
+
+Name: res/layout/stk_msg_dialog.xml
+SHA-256-Digest: D1YptAPAiM7CQaMu87LBYF0/3F49daHibOuFoLVXMJw=
+
+Name: res/layout/stk_title.xml
+SHA-256-Digest: 9drMjTbr56thHUS5FT7F3HnqDLUrrrnLyigr1nxqL/E=
+
+Name: res/layout/stk_custom_title.xml
+SHA-256-Digest: BLxhMJ5olMRa8XAX0eVwbo//8CX5SrB50/48BvxSR/8=
+
+Name: resources.arsc
+SHA-256-Digest: suSlFQcKA6SXjlufscL8tNBkoqDhfV3KHm733IlAuZ0=
+
+Name: res/layout/stk_menu_list.xml
+SHA-256-Digest: AnipUxUJ7Nb/qFL+fl8YJOttb4swfSGhnOZaR5MUXdE=
+
+Name: res/layout/stk_tone_dialog.xml
+SHA-256-Digest: t4+Oqy8szP9cxj3pIg2F9RC1I42m/d4fux4ejyC8HKE=
+

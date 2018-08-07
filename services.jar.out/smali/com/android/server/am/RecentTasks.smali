@@ -1817,7 +1817,7 @@
 
     move-result v5
 
-    if-nez v5, :cond_flyme_0
+    if-eqz v5, :cond_flyme_0
 
     return-void
 

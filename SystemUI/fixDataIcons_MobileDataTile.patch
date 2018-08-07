@@ -1,0 +1,13 @@
+--- a/SystemUI/smali/com/flyme/systemui/qs/tiles/MobileDataTile.smali
++++ b/SystemUI/smali/com/flyme/systemui/qs/tiles/MobileDataTile.smali
+@@ -413,6 +413,7 @@
+     :goto_1
+     invoke-interface {v7, v3}, Lcom/flyme/systemui/statusbar/policy/MobileDataController;->setMobileDataEnabled(Z)V
+ 
++    invoke-virtual {p0}, Lcom/android/systemui/qs/QSTile;->refreshState()V
+     .line 97
+     :goto_2
+     return-void
+-- 
+1.9.1
+

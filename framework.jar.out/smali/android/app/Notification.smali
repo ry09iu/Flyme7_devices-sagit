@@ -3299,3 +3299,11 @@
     :cond_3
     throw v1
 .end method
+
+.method static synthetic getmSmallIcon(Landroid/app/Notification;)Landroid/graphics/drawable/Icon;
+    .locals 1
+
+    iget-object v0, p0, Landroid/app/Notification;->mSmallIcon:Landroid/graphics/drawable/Icon;
+
+    return-object v0
+.end method

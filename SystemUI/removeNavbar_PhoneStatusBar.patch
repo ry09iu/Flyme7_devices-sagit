@@ -1,0 +1,14 @@
+--- a/SystemUI/smali/com/android/systemui/statusbar/phone/PhoneStatusBar.smali
++++ b/SystemUI/smali/com/android/systemui/statusbar/phone/PhoneStatusBar.smali
+@@ -2054,7 +2054,7 @@
+     if-nez v0, :cond_0
+ 
+     :cond_0
+-    const/4 v0, 0x1
++    const/4 v0, 0x0
+ 
+     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDefNavigationBarMode:I
+ 
+-- 
+1.9.1
+

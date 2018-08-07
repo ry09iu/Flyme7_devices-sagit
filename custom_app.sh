@@ -21,14 +21,18 @@ function applyPatch () {
 }
 
 if [ "$apkBaseName" = "ConnectivitySettings" ]; then
-    echo ">>> in custom_app for $apkBaseName to adjust the interface "setDefaultDataSubId" with "setDefaultDataSubIdExtended""
+    echo ">>> in custom_app for $apkBaseName to adjust the interface \"setDefaultDataSubId\" with \"setDefaultDataSubIdExtended\""
     find $tempSmaliDir/ -name "*.smali" | xargs sed -i 's#Landroid\/telephony\/SubscriptionManager;->setDefaultDataSubId(I)V#Landroid\/telephony\/SubscriptionManager;->setDefaultDataSubIdExtended(I)V#g'
 
 elif [ "$apkBaseName" = "Telecom" ]; then
-    echo ">>> in custom_app for $apkBaseName to adjust the interface "setDefaultVoiceSubId" with "setDefaultVoiceSubIdExtended""
+    echo ">>> in custom_app for $apkBaseName to adjust the interface \"setDefaultVoiceSubId\" with \"setDefaultVoiceSubIdExtended\""
     find $tempSmaliDir/ -name "*.smali" | xargs sed -i 's#Landroid\/telephony\/SubscriptionManager;->setDefaultVoiceSubId(I)V#Landroid\/telephony\/SubscriptionManager;->setDefaultVoiceSubIdExtended(I)V#g'
 
 elif [ "$apkBaseName" = "TeleService" ]; then
     echo ">>> in custom_app for $apkBaseName to fix the problem of repairing the cdma card does not show the time of the call."
     sed -i "s#    invoke-direct {p0, v5}, Lcom/android/services/telephony/TelephonyConnection;->getCallState(Lcom/android/internal/telephony/Connection;)Lcom/android/internal/telephony/Call\$State;#    invoke-virtual {v5}, Lcom/android/internal/telephony/Connection;->getState()Lcom/android/internal/telephony/Call\$State;#g" $2/smali/com/android/services/telephony/TelephonyConnection.smali
+
+elif [ $1 = "SystemUI" ];then
+	echo ">>> Patching for $apkBaseName."
+	applyPatch $1 $2
 fi

@@ -3920,7 +3920,7 @@
 
 
     :cond_flyme_0
-    invoke-direct {p0, p1, p2}, Lcom/android/server/am/TaskRecord;->updateFlymeActivityRecordIndex(ILcom/android/server/am/ActivityRecord;)I
+    invoke-direct/range {p0 .. p2}, Lcom/android/server/am/TaskRecord;->updateFlymeActivityRecordIndex(ILcom/android/server/am/ActivityRecord;)I
 
     move-result p1
 

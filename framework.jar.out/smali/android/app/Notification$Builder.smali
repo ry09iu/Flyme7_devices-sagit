@@ -5999,7 +5999,7 @@
 
     iget-object v0, p0, Landroid/app/Notification$Builder;->mN:Landroid/app/Notification;
 
-    invoke-static {v0}, Landroid/app/Notification;->-get2(Landroid/app/Notification;)Landroid/graphics/drawable/Icon;
+    invoke-static {v0}, Landroid/app/Notification;->getmSmallIcon(Landroid/app/Notification;)Landroid/graphics/drawable/Icon;
 
     move-result-object v0
 

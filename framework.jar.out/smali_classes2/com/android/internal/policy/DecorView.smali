@@ -597,7 +597,7 @@
     :cond_1
     :goto_0
 
-    invoke-static {p0, v0}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeCalculateStatusBarColor(Lcom/android/internal/policy/DecorView;I)I
+    invoke-static {p0, v1}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeCalculateStatusBarColor(Lcom/android/internal/policy/DecorView;I)I
 
     move-result v1
 
@@ -4767,7 +4767,15 @@
 
     invoke-static/range {p0 .. p1}, Lcom/android/internal/policy/FlymeDecorViewInjector;->flymeDispatchKeyEvent(Lcom/android/internal/policy/DecorView;Landroid/view/KeyEvent;)Z
 
-    move-result v2
+    move-result v6
+
+    if-eqz v6, :cond_flyme_0
+
+    const/4 v6, 0x1
+
+    return v6
+
+    :cond_flyme_0
 
     if-eqz v2, :cond_4
 

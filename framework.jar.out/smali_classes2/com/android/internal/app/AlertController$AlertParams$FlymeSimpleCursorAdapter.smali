@@ -18,8 +18,29 @@
 .field final synthetic this$1:Lcom/android/internal/app/AlertController$AlertParams;
 
 
+# virtual methods
+.method public getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
+    .locals 2
+    .param p1, "position"    # I
+    .param p2, "convertView"    # Landroid/view/View;
+    .param p3, "parent"    # Landroid/view/ViewGroup;
+
+    .prologue
+    invoke-super {p0, p1, p2, p3}, Landroid/widget/SimpleCursorAdapter;->getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
+
+    move-result-object v0
+
+    .local v0, "view":Landroid/view/View;
+    iget-object v1, p0, Lcom/android/internal/app/AlertController$AlertParams$FlymeSimpleCursorAdapter;->this$1:Lcom/android/internal/app/AlertController$AlertParams;
+
+    invoke-virtual {v1, v0}, Lcom/android/internal/app/AlertController$AlertParams;->setFlymeListItemViewPadding(Landroid/view/View;)V
+
+    return-object v0
+.end method
+
+
 # direct methods
-.method constructor <init>(Lcom/android/internal/app/AlertController$AlertParams;Landroid/content/Context;ILandroid/database/Cursor;[Ljava/lang/String;[I)V
+.method constructor <init>(Lcom/android/internal/app/AlertController$AlertParams;ILandroid/database/Cursor;[Ljava/lang/String;[I)V
     .locals 6
     .param p1, "this$1"    # Lcom/android/internal/app/AlertController$AlertParams;
     .param p2, "layout"    # I
@@ -48,28 +69,4 @@
 
     .line 1207
     return-void
-.end method
-
-
-# virtual methods
-.method public getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
-    .locals 2
-    .param p1, "position"    # I
-    .param p2, "convertView"    # Landroid/view/View;
-    .param p3, "parent"    # Landroid/view/ViewGroup;
-
-    .prologue
-    .line 1213
-    invoke-super {p0, p1, p2, p3}, Landroid/widget/SimpleCursorAdapter;->getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 1214
-    .local v0, "view":Landroid/view/View;
-    iget-object v1, p0, Lcom/android/internal/app/AlertController$AlertParams$FlymeSimpleCursorAdapter;->this$1:Lcom/android/internal/app/AlertController$AlertParams;
-
-    invoke-virtual {v1, v0}, Lcom/android/internal/app/AlertController$AlertParams;->setFlymeListItemViewPadding(Landroid/view/View;)V
-
-    .line 1215
-    return-object v0
 .end method
