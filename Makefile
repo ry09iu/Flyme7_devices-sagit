@@ -109,7 +109,7 @@ board_remove_apps := LogReport Camera MzStore
 # The command idtoname how to use: first use "apktool d source/system/framework/framework-res.apk other/TMP/framework-res",
 # and then use "idtoname other/TMP/framework-res/res/values/public_master.xml XXXX/smali"(XXXX is the directory where you decode board system apk).
 #-----------------------------------------------------------------------------
-board_modify_apps := ConnectivitySettings Telecom TeleService SystemUI
+board_modify_apps := ConnectivitySettings Telecom TeleService SystemUI Settings
 
 ##############################################################################
 # The value decides which jar you want to modify, when the jar is based on the board framework jar.
@@ -179,7 +179,7 @@ USE_ASSERTIONS_IN_UPDATER_SCRIPT := false
 # Will fall back to a file-based OTA if the target_files is older and doesn't support block-based OTAs.
 # Default: true
 #-----------------------------------------------------------------------------
-PRODUCE_BLOCK_BASED_OTA := false
+PRODUCE_BLOCK_BASED_OTA := true
 
 ##############################################################################
 # Defines whether build an international version of package.

@@ -35,4 +35,12 @@ elif [ "$apkBaseName" = "TeleService" ]; then
 elif [ $1 = "SystemUI" ];then
 	echo ">>> Patching for $apkBaseName."
 	applyPatch $1 $2
+
+elif [ "$apkBaseName" = "Settings" ]; then
+    echo ">>> in custom_app for $apkBaseName."
+    echo "> Fix vib when ringing"
+    find $tempSmaliDir/ -name "*.smali" | xargs sed -i 's#\"vibrate_when_ringing\"#\"vibrate_in_normal\"#g'
+    find $tempSmaliDir/ -name "*.xml" | xargs sed -i 's#\"vibrate_when_ringing\"#\"vibrate_in_normal\"#g'
+    #find $tempSmaliDir/ -name "*.smali" | xargs sed -i 's#sys/block/sdc/size#sys/block/sda/size#g'
+    #find $tempSmaliDir/ -name "*.smali" | xargs sed -i 's#sys/block/mmcblk0/size#sys/block/sda/size#g'
 fi

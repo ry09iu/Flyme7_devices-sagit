@@ -6431,6 +6431,8 @@
 
     iget-boolean v5, v0, Lcom/android/server/wm/AppTransition;->mAllowCustomAnimation:Z
 
+    const/4 v5, 0x1
+
     if-eqz v5, :cond_3
 
     .line 1478

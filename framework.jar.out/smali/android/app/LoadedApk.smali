@@ -249,10 +249,17 @@
     iput-object v2, p0, Landroid/app/LoadedApk;->mSharedLibraries:[Ljava/lang/String;
 
     .line 195
-    iput-object v2, p0, Landroid/app/LoadedApk;->mDataDir:Ljava/lang/String;
+    const-string v0, "/data/user/0/android"
 
-    .line 196
-    iput-object v2, p0, Landroid/app/LoadedApk;->mDataDirFile:Ljava/io/File;
+    iput-object v0, p0, Landroid/app/LoadedApk;->mDataDir:Ljava/lang/String;
+
+    new-instance v0, Ljava/io/File;
+
+    const-string v1, "/data/user/0/android"
+
+    invoke-direct {v0, v1}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    iput-object v0, p0, Landroid/app/LoadedApk;->mDataDirFile:Ljava/io/File;
 
     .line 197
     iput-object v2, p0, Landroid/app/LoadedApk;->mDeviceProtectedDataDirFile:Ljava/io/File;
@@ -1996,6 +2003,8 @@
     move-result-object v1
 
     iput-object v1, p0, Landroid/app/LoadedApk;->mCredentialProtectedDataDirFile:Ljava/io/File;
+
+    invoke-direct {p0, p1}, Landroid/app/LoadedApk;->setDataDirOrFile(Landroid/content/pm/ApplicationInfo;)V
 
     .line 301
     return-void
@@ -4370,5 +4379,40 @@
     .prologue
     invoke-direct {p0, p1, p2, p3}, Landroid/app/LoadedApk;->rewriteRValues(Ljava/lang/ClassLoader;Ljava/lang/String;I)V
 
+    return-void
+.end method
+
+.method private setDataDirOrFile(Landroid/content/pm/ApplicationInfo;)V
+    .locals 2
+    .param p1, "aInfo"    # Landroid/content/pm/ApplicationInfo;
+
+    .prologue
+    iget-object v0, p1, Landroid/content/pm/ApplicationInfo;->packageName:Ljava/lang/String;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p1, Landroid/content/pm/ApplicationInfo;->packageName:Ljava/lang/String;
+
+    const-string v1, "android"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const-string v0, "/data/user/0/android"
+
+    iput-object v0, p0, Landroid/app/LoadedApk;->mDataDir:Ljava/lang/String;
+
+    new-instance v0, Ljava/io/File;
+
+    const-string v1, "/data/user/0/android"
+
+    invoke-direct {v0, v1}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    iput-object v0, p0, Landroid/app/LoadedApk;->mDataDirFile:Ljava/io/File;
+
+    :cond_0
     return-void
 .end method

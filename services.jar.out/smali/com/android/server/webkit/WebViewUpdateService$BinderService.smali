@@ -479,6 +479,8 @@
 
     .prologue
     .line 182
+	goto: cond_0
+
     invoke-static {}, Landroid/os/Binder;->getCallingPid()I
 
     move-result v0

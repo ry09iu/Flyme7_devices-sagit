@@ -18,6 +18,7 @@
         Lcom/android/server/am/ActivityManagerService$AppTaskImpl;,
         Lcom/android/server/am/ActivityManagerService$Association;,
         Lcom/android/server/am/ActivityManagerService$CpuBinder;,
+        Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;,
         Lcom/android/server/am/ActivityManagerService$DbBinder;,
         Lcom/android/server/am/ActivityManagerService$FontScaleSettingObserver;,
         Lcom/android/server/am/ActivityManagerService$ForegroundToken;,
@@ -50,6 +51,12 @@
 .field public static final ACTION_TRIGGER_IDLE:Ljava/lang/String; = "com.android.server.ACTION_TRIGGER_IDLE"
 
 .field static final ALLOW_FULL_ONLY:I = 0x2
+
+.field static final LAUNCHER_ACTIVITY_TO_FRONT:I = 0x7fffffff
+
+.field static final NOT_LAUNCHER_ACTIVITY_TO_FRONT:I = 0x7ffffffe
+
+.field static final WITHOUT_LAUNCHER_ACTIVITY_TO_FRONT:I = 0x7ffffffd
 
 .field static final ALLOW_NON_FULL:I = 0x0
 
@@ -1151,6 +1158,10 @@
 .field mTestPssMode:Z
 
 .field mThumbnailHeight:I
+
+.field final mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+.field mPKTopWindow:Lcom/android/server/am/PKTopWindow;
 
 .field mThumbnailWidth:I
 
@@ -3781,6 +3792,18 @@
     invoke-direct {v0, p0}, Lcom/android/server/am/ActivityStackSupervisor;-><init>(Lcom/android/server/am/ActivityManagerService;)V
 
     iput-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mStackSupervisor:Lcom/android/server/am/ActivityStackSupervisor;
+
+    new-instance v0, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+    iget-object v1, p0, Lcom/android/server/am/ActivityManagerService;->mHandlerThread:Lcom/android/server/ServiceThread;
+
+    invoke-virtual {v1}, Lcom/android/server/ServiceThread;->getLooper()Landroid/os/Looper;
+
+    move-result-object v1
+
+    invoke-direct {v0, p0, v1}, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;-><init>(Lcom/android/server/am/ActivityManagerService;Landroid/os/Looper;)V
+
+    iput-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
 
     .line 2799
     new-instance v0, Lcom/android/server/am/ActivityStarter;
@@ -119550,4 +119573,75 @@
 
     .local v1, "e":Landroid/os/RemoteException;
     goto :goto_1
+.end method
+
+.method public removePKTopWindowIfNeed()V
+    .locals 3
+
+    .prologue
+    const/4 v2, 0x0
+
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mPKTopWindow:Lcom/android/server/am/PKTopWindow;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mPKTopWindow:Lcom/android/server/am/PKTopWindow;
+
+    const/4 v1, -0x1
+
+    invoke-virtual {v0, v1}, Lcom/android/server/am/PKTopWindow;->dismissWindowsAt(I)V
+
+    iput-object v2, p0, Lcom/android/server/am/ActivityManagerService;->mPKTopWindow:Lcom/android/server/am/PKTopWindow;
+
+    :cond_0
+    return-void
+.end method
+
+.method public showPKTopWindow(Landroid/content/Context;Lcom/android/server/am/ActivityManagerService;JLandroid/content/ComponentName;)V
+    .locals 7
+    .param p1, "context"    # Landroid/content/Context;
+    .param p2, "service"    # Lcom/android/server/am/ActivityManagerService;
+    .param p3, "time"    # J
+    .param p5, "componentName"    # Landroid/content/ComponentName;
+
+    .prologue
+    invoke-virtual {p0}, Lcom/android/server/am/ActivityManagerService;->removePKTopWindowIfNeed()V
+
+    new-instance v1, Lcom/android/server/am/PKTopWindow;
+
+    move-object v2, p1
+
+    move-object v3, p2
+
+    move-wide v4, p3
+
+    move-object v6, p5
+
+    invoke-direct/range {v1 .. v6}, Lcom/android/server/am/PKTopWindow;-><init>(Landroid/content/Context;Lcom/android/server/am/ActivityManagerService;JLandroid/content/ComponentName;)V
+
+    iput-object v1, p0, Lcom/android/server/am/ActivityManagerService;->mPKTopWindow:Lcom/android/server/am/PKTopWindow;
+
+    return-void
+.end method
+
+.method public getSystemThreadLooper()Landroid/os/Looper;
+    .locals 2
+
+    .prologue
+    const/4 v1, 0x0
+
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mSystemThread:Landroid/app/ActivityThread;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/server/am/ActivityManagerService;->mSystemThread:Landroid/app/ActivityThread;
+
+    invoke-virtual {v0}, Landroid/app/ActivityThread;->getLooper()Landroid/os/Looper;
+
+    move-result-object v0
+
+    return-object v0
+
+    :cond_0
+    return-object v1
 .end method

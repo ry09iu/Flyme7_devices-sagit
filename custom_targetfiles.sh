@@ -3,6 +3,13 @@
 TARGET_FILES_DIR=$1
 SYSTEM_DIR=$TARGET_FILES_DIR/SYSTEM
 OVERLAY_DIR=overlay
+META_INF=$OVERLAY_DIR/services/original/META-INF
+
+function modify_services() {
+    cp -r $META_INF .
+    zip -u $SYSTEM_DIR/framework/services.jar -r META-INF/
+    rm -rf META-INF/
+}
 
 function modify_launcher_xml() {
     if [ -f $SYSTEM_DIR/media/launcher.xml ]; then
@@ -43,6 +50,7 @@ function custom_flyme_version() {
     fi
 }
 
+modify_services
 modify_launcher_xml
 add_base_binary
 get_ori_date

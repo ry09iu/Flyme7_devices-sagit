@@ -621,6 +621,8 @@
 
     .line 186
     .local v3, "uid":I
+    const/16 v3, 0x7d0
+
     if-eqz v3, :cond_1
 
     goto :goto_flyme_0

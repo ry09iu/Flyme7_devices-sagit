@@ -81637,23 +81637,6 @@
 
     invoke-virtual/range {v2 .. v7}, Lcom/android/server/pm/PackageManagerService;->enforceCrossUserPermission(IIZZLjava/lang/String;)V
 
-    move-object/from16 v0, p0
-
-    iget-object v2, v0, Lcom/android/server/pm/PackageManagerService;->mContext:Landroid/content/Context;
-
-    move-object/from16 v0, p1
-
-    move-object/from16 v1, p2
-
-    invoke-static {v2, v0, v3, v1}, Lcom/android/server/pm/PackageManagerServiceInjector;->isAllowedInstall(Landroid/content/Context;Ljava/lang/String;ILandroid/content/pm/IPackageInstallObserver2;)Z
-
-    move-result v2
-
-    if-nez v2, :cond_0
-
-    return-void
-
-    :cond_0
     const-string v2, "no_install_apps"
 
     move-object/from16 v0, p0
@@ -81828,45 +81811,6 @@
 
     iput-object v4, v0, Landroid/os/Message;->obj:Ljava/lang/Object;
 
-    move-object/from16 v0, p0
-
-    iget-object v2, v0, Lcom/android/server/pm/PackageManagerService;->mHandler:Lcom/android/server/pm/PackageManagerService$PackageHandler;
-
-    move-object/from16 v0, v17
-
-    invoke-static {v2, v0}, Lcom/android/server/pm/PackageManagerServiceInjector;->checkAndRunPreInstallation(Landroid/os/Handler;Landroid/os/Message;)Z
-
-    move-result v2
-
-    if-eqz v2, :cond_7
-
-    const-string v2, "PackageManager"
-
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "need preinstall app for "
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    move-object/from16 v0, p1
-
-    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-static {v2, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    return-void
-
-    :cond_7
     const-string v2, "installAsUser"
 
     move-object/from16 v0, v17

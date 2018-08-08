@@ -20020,6 +20020,19 @@
 
     .prologue
     .line 3209
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p2
+
+    invoke-direct {v0, v1}, Lcom/android/server/policy/PhoneWindowManager;->inKeyEventFilter(Landroid/view/KeyEvent;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_pk_0
+
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/policy/PhoneWindowManager;->sendKeyCodeBackBroadcast()V
+
+    :cond_pk_0
     invoke-virtual/range {p0 .. p0}, Lcom/android/server/policy/PhoneWindowManager;->keyguardOn()Z
 
     move-result v32
@@ -32141,4 +32154,78 @@
     .line 4531
     :cond_8
     return v2
+.end method
+
+.method private inKeyEventFilter(Landroid/view/KeyEvent;)Z
+    .locals 3
+    .param p1, "event"    # Landroid/view/KeyEvent;
+
+    .prologue
+    const/4 v2, 0x1
+
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->getAction()I
+
+    move-result v0
+
+    if-ne v0, v2, :cond_0
+
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->getKeyCode()I
+
+    move-result v0
+
+    const/4 v1, 0x4
+
+    if-ne v0, v1, :cond_0
+
+    return v2
+
+    :cond_0
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method private sendKeyCodeBackBroadcast()V
+    .locals 4
+
+    .prologue
+    :try_start_0
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v2, "android.intent.action.KEYCODE_BACK"
+
+    invoke-direct {v1, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    .local v1, "intent":Landroid/content/Intent;
+    iget-object v2, p0, Lcom/android/server/policy/PhoneWindowManager;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v2}, Landroid/content/Context;->getPackageName()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->setPackage(Ljava/lang/String;)Landroid/content/Intent;
+
+    const/high16 v2, 0x14000000
+
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    iget-object v2, p0, Lcom/android/server/policy/PhoneWindowManager;->mContext:Landroid/content/Context;
+
+    sget-object v3, Landroid/os/UserHandle;->ALL:Landroid/os/UserHandle;
+
+    invoke-virtual {v2, v1, v3}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    .end local v1    # "intent":Landroid/content/Intent;
+    :goto_0
+    return-void
+
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Ljava/lang/Exception;
+    invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
+
+    goto :goto_0
 .end method

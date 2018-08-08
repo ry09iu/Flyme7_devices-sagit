@@ -71,6 +71,7 @@
 
 .field private final mVideoState:I
 
+.field private final mSupportedAudioRoutes:I
 
 # direct methods
 .method static constructor <clinit>()V
@@ -625,4 +626,14 @@
 
     .line 260
     goto :goto_1
+.end method
+
+.method public getSupportedAudioRoutes()I
+    .locals 1
+
+    .prologue
+    .line 124
+    iget v0, p0, Landroid/telecom/ParcelableConnection;->mSupportedAudioRoutes:I
+
+    return v0
 .end method

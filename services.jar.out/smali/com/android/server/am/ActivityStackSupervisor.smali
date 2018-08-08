@@ -15461,6 +15461,8 @@
 
     .line 1454
     :cond_17
+    invoke-direct/range {p0 .. p1}, Lcom/android/server/am/ActivityStackSupervisor;->sendActivityMessage(Lcom/android/server/am/ActivityRecord;)V
+
     const/4 v4, 0x1
 
     return v4
@@ -21811,4 +21813,334 @@
     .end local v6    # "stacks":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Lcom/android/server/am/ActivityStack;>;"
     :cond_8
     return-void
+.end method
+
+.method private sendActivityMessage(Lcom/android/server/am/ActivityRecord;)V
+    .locals 12
+    .param p1, "r"    # Lcom/android/server/am/ActivityRecord;
+
+    .prologue
+    const/4 v11, 0x2
+
+    const/4 v10, 0x1
+
+    const/4 v9, 0x0
+
+    const/4 v5, 0x0
+
+    .local v5, "startedPackageName":Ljava/lang/String;
+    const/4 v4, 0x0
+
+    .local v4, "startedClassName":Ljava/lang/String;
+    const/4 v1, 0x0
+
+    .local v1, "launchIntent":Landroid/content/Intent;
+    const/4 v0, 0x0
+
+    .local v0, "launchClassName":Ljava/lang/String;
+    const/4 v2, 0x0
+
+    .local v2, "launchPackageName":Ljava/lang/String;
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    if-eqz v6, :cond_0
+
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
+
+    if-nez v6, :cond_1
+
+    :cond_0
+    return-void
+
+    :cond_1
+    iget-object v6, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    if-eqz v6, :cond_2
+
+    iget-object v6, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v6}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v6
+
+    if-eqz v6, :cond_2
+
+    iget-object v6, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v6}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
+
+    move-result-object v5
+
+    .local v5, "startedPackageName":Ljava/lang/String;
+    iget-object v6, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v6}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Landroid/content/ComponentName;->getClassName()Ljava/lang/String;
+
+    move-result-object v4
+
+    .local v4, "startedClassName":Ljava/lang/String;
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v6}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v5}, Landroid/content/pm/PackageManager;->getLaunchIntentForPackage(Ljava/lang/String;)Landroid/content/Intent;
+
+    move-result-object v1
+
+    .local v1, "launchIntent":Landroid/content/Intent;
+    sget-object v6, Lcom/android/server/am/ActivityStackSupervisor;->TAG:Ljava/lang/String;
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "ActivityStackSupervisor: startedPackageName: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    const-string v8, ", startedClassName: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-static {v6, v7}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .end local v1    # "launchIntent":Landroid/content/Intent;
+    .end local v4    # "startedClassName":Ljava/lang/String;
+    .end local v5    # "startedPackageName":Ljava/lang/String;
+    :cond_2
+    if-eqz v1, :cond_3
+
+    invoke-virtual {v1}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v6
+
+    if-eqz v6, :cond_3
+
+    invoke-virtual {v1}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
+
+    move-result-object v2
+
+    .local v2, "launchPackageName":Ljava/lang/String;
+    invoke-virtual {v1}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Landroid/content/ComponentName;->getClassName()Ljava/lang/String;
+
+    move-result-object v0
+
+    .local v0, "launchClassName":Ljava/lang/String;
+    sget-object v6, Lcom/android/server/am/ActivityStackSupervisor;->TAG:Ljava/lang/String;
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "ActivityStackSupervisor: launchPackageName: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    const-string v8, ", launchClassName: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-static {v6, v7}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .end local v0    # "launchClassName":Ljava/lang/String;
+    .end local v2    # "launchPackageName":Ljava/lang/String;
+    :cond_3
+    if-eqz v0, :cond_6
+
+    invoke-virtual {v0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v6
+
+    if-eqz v6, :cond_5
+
+    sget-object v6, Lcom/android/server/am/ActivityStackSupervisor;->TAG:Ljava/lang/String;
+
+    const-string v7, "ActivityStackSupervisor: LAUNCHER_ACTIVITY_TO_FRONT"
+
+    invoke-static {v6, v7}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+    const v7, 0x7fffffff
+
+    invoke-virtual {v6, v7}, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;->obtainMessage(I)Landroid/os/Message;
+
+    move-result-object v3
+
+    .local v3, "msg":Landroid/os/Message;
+    new-array v6, v11, [Ljava/lang/String;
+
+    aput-object v5, v6, v9
+
+    aput-object v0, v6, v10
+
+    iput-object v6, v3, Landroid/os/Message;->obj:Ljava/lang/Object;
+
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+    invoke-virtual {v6, v3}, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;->sendMessage(Landroid/os/Message;)Z
+
+    .end local v3    # "msg":Landroid/os/Message;
+    :cond_4
+    :goto_0
+    return-void
+
+    :cond_5
+    sget-object v6, Lcom/android/server/am/ActivityStackSupervisor;->TAG:Ljava/lang/String;
+
+    const-string v7, "ActivityStackSupervisor: NOT_LAUNCHER_ACTIVITY_TO_FRONT"
+
+    invoke-static {v6, v7}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+    const v7, 0x7ffffffe
+
+    invoke-virtual {v6, v7}, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;->obtainMessage(I)Landroid/os/Message;
+
+    move-result-object v3
+
+    .restart local v3    # "msg":Landroid/os/Message;
+    new-array v6, v11, [Ljava/lang/String;
+
+    aput-object v5, v6, v9
+
+    aput-object v4, v6, v10
+
+    iput-object v6, v3, Landroid/os/Message;->obj:Ljava/lang/Object;
+
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+    invoke-virtual {v6, v3}, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;->sendMessage(Landroid/os/Message;)Z
+
+    goto :goto_0
+
+    .end local v3    # "msg":Landroid/os/Message;
+    :cond_6
+    iget-object v6, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    if-eqz v6, :cond_4
+
+    iget-object v6, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v6}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v6
+
+    if-eqz v6, :cond_4
+
+    sget-object v6, Lcom/android/server/am/ActivityStackSupervisor;->TAG:Ljava/lang/String;
+
+    const-string v7, "ActivityStackSupervisor: WITHOUT_LAUNCHER_ACTIVITY_TO_FRONT"
+
+    invoke-static {v6, v7}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+    const v7, 0x7ffffffd
+
+    invoke-virtual {v6, v7}, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;->obtainMessage(I)Landroid/os/Message;
+
+    move-result-object v3
+
+    .restart local v3    # "msg":Landroid/os/Message;
+    new-array v6, v11, [Ljava/lang/String;
+
+    iget-object v7, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v7}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
+
+    move-result-object v7
+
+    aput-object v7, v6, v9
+
+    iget-object v7, p1, Lcom/android/server/am/ActivityRecord;->intent:Landroid/content/Intent;
+
+    invoke-virtual {v7}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Landroid/content/ComponentName;->getClassName()Ljava/lang/String;
+
+    move-result-object v7
+
+    aput-object v7, v6, v10
+
+    iput-object v6, v3, Landroid/os/Message;->obj:Ljava/lang/Object;
+
+    iget-object v6, p0, Lcom/android/server/am/ActivityStackSupervisor;->mService:Lcom/android/server/am/ActivityManagerService;
+
+    iget-object v6, v6, Lcom/android/server/am/ActivityManagerService;->mPKActivityStarterHandler:Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;
+
+    invoke-virtual {v6, v3}, Lcom/android/server/am/ActivityManagerService$PKActivityStarterHandler;->sendMessage(Landroid/os/Message;)Z
+
+    goto :goto_0
 .end method
